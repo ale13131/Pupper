@@ -86,10 +86,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // DynamoDBClient Stuff - Aaron 10/20
         Context appContext = getApplicationContext();
 
-        final AWSCredentialsProvider credentialsProvider = AWSIdentityManager.getDefault().getCredentialsProvider();
-        userId = IdentityManager.getCachedUserID();
+        final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+        // FIX BELOW
+        // userId = IdentityManager.getCachedUserID();
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
-        AWSConfiguration awsConfig;
+        AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
