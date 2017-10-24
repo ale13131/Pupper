@@ -30,14 +30,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
 
+//Login
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Import the following for DB API calls
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import static com.amazonaws.auth.policy.actions.DynamoDBv2Actions.Query;
 import com.amazonaws.mobile.*;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -80,8 +87,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Context appContext = getApplicationContext();
 
         final AWSCredentialsProvider credentialsProvider = AWSIdentityManager.getDefault().getCredentialsProvider();
-        userId = identityManager.getCachedUserID();
+        userId = IdentityManager.getCachedUserID();
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
+        AWSConfiguration awsConfig;
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
