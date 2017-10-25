@@ -26,6 +26,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile('com.amazonaws:aws-android-sdk-auth-core:2.6.0@aar') { transitive = true; }
+
+    //compile 'com.android.support:support-v4:24.+'
+    compile('com.amazonaws:aws-android-sdk-auth-userpools:2.6.+@aar') { transitive = true; }
+    compile('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
+
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
@@ -38,10 +43,5 @@ dependencies {
     compile 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-s3:2.6.+'
-
-    //compile 'com.android.support:support-v4:24.+'
-    compile ('com.amazonaws:aws-android-sdk-auth-userpools:2.6.+@aar') { transitive = true; }
-    compile ('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
-
     testCompile 'junit:junit:4.12'
 }
