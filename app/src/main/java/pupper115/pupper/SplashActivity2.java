@@ -1,5 +1,6 @@
 package pupper115.pupper;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -9,6 +10,8 @@ import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
 import com.amazonaws.mobile.auth.core.StartupAuthResult;
 import android.content.Intent;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 public class SplashActivity2 extends AppCompatActivity {
 
@@ -35,6 +38,8 @@ public class SplashActivity2 extends AppCompatActivity {
         final Intent intent = new Intent(this, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+        Log.d("Answer: ", Activity.RESULT_OK + "    " + Activity.RESULT_FIRST_USER);
+
         startActivityForResult(intent, 1);
         //*/
 
@@ -51,10 +56,25 @@ public class SplashActivity2 extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
-            case 1:
+            case -1:
+                // User is in the system
                 Intent intent2 = new Intent(this, MainActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 this.startActivity(intent2);
+                this.finish();
+                break;
+
+            case 1:
+                Context context = getApplicationContext();
+                CharSequence text = "NEW USER!!";
+                int duration = Toast.LENGTH_LONG;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+
+                Intent intent = new Intent(this, MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(intent);
                 this.finish();
                 break;
         }

@@ -20,10 +20,10 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="Pupper" />
         <activity
             android:name=".SplashActivity2"
-            android:label="@string/title_activity_splash2"
+            android:label="Pupper"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -366,6 +366,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
+            Intent resultIntent = new Intent();
+            setResult(1, resultIntent);
+
+            finish();
+
             return true;
         }
 
@@ -375,8 +380,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                //Login was successful, go to main screen
                 Intent resultIntent = new Intent();
-                setResult(Activity.RESULT_OK, resultIntent);
+                setResult(-1, resultIntent);
                 finish();
             }
         }
