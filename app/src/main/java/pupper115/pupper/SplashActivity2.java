@@ -27,11 +27,36 @@ public class SplashActivity2 extends AppCompatActivity {
             }
         });
 
-        // Go to the main activity
+
+
+        // Go to the Login activity
+        // Comment out to bypass login page
+        ///*
         final Intent intent = new Intent(this, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivityForResult(intent, 1);
+        //*/
+
+        //To bypass login screen, uncomment below
+        /*
+        final Intent intent = new Intent(this, MainActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         this.startActivity(intent);
         this.finish();
+        */
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case 1:
+                Intent intent2 = new Intent(this, MainActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                this.startActivity(intent2);
+                this.finish();
+                break;
+        }
     }
 }
