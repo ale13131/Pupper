@@ -22,6 +22,9 @@
             android:name=".LoginActivity"
             android:label="Pupper" />
         <activity
+            android:name=".NewUser"
+            android:label="Pupper"/>
+        <activity
             android:name=".SplashActivity2"
             android:label="Pupper"
             android:theme="@style/AppTheme.NoActionBar">

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
@@ -38,9 +39,7 @@ public class SplashActivity2 extends AppCompatActivity {
         final Intent intent = new Intent(this, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-        Log.d("Answer: ", Activity.RESULT_OK + "    " + Activity.RESULT_FIRST_USER);
-
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 2);
         //*/
 
         //To bypass login screen, uncomment below
@@ -55,26 +54,29 @@ public class SplashActivity2 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
-            case -1:
+
+        switch(resultCode) {
+            case 2:
                 // User is in the system
-                Intent intent2 = new Intent(this, MainActivity.class)
+                final Intent intent2 = new Intent(this, MainActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 this.startActivity(intent2);
                 this.finish();
                 break;
 
             case 1:
-                Context context = getApplicationContext();
-                CharSequence text = "NEW USER!!";
-                int duration = Toast.LENGTH_LONG;
+                // New User
+                String eMail = data.getStringExtra("email");;
+                String password = data.getStringExtra("password");
 
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-
-                Intent intent = new Intent(this, MainActivity.class)
+                final Intent intent3 = new Intent(this, NewUser.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                this.startActivity(intent);
+
+                intent3.putExtra("email", eMail);
+                intent3.putExtra("password", password);
+
+                this.startActivity(intent3);
+
                 this.finish();
                 break;
         }

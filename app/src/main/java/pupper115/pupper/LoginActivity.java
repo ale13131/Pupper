@@ -32,7 +32,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
-import android.widget.Toast;
 
 //Login
 import com.amazonaws.mobile.auth.core.IdentityProvider;
@@ -204,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError("Email field is empty");
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
@@ -369,6 +368,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Intent resultIntent = new Intent();
             setResult(1, resultIntent);
 
+            resultIntent.putExtra("email", mEmail);
+            resultIntent.putExtra("password", mPassword);
+
             finish();
 
             return true;
@@ -382,7 +384,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 //Login was successful, go to main screen
                 Intent resultIntent = new Intent();
-                setResult(-1, resultIntent);
+                setResult(2, resultIntent);
                 finish();
             }
         }
