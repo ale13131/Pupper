@@ -3,6 +3,8 @@ package pupper115.pupper;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,14 +33,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
 
+//Login
+import com.amazonaws.mobile.auth.core.IdentityProvider;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Import the following for DB API calls
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import static com.amazonaws.auth.policy.actions.DynamoDBv2Actions.Query;
 import com.amazonaws.mobile.*;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -79,9 +90,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // DynamoDBClient Stuff - Aaron 10/20
         Context appContext = getApplicationContext();
 
-        final AWSCredentialsProvider credentialsProvider = AWSIdentityManager.getDefault().getCredentialsProvider();
-        userId = identityManager.getCachedUserID();
+        final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+        // FIX BELOW
+        // onuserId = IdentityManager.getCachedUserID();
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
+        AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
@@ -182,14 +195,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Password must be 8 characters and have at " +
+                    "least one of each: 1 character and 1 number");
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
+            mEmailView.setError("Email field is empty");
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
@@ -218,7 +232,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        Boolean isGood = false;
+
+        if(password.length() > 7)
+            if(password.matches("[a-zA-Z ]*\\d+[a-zA-Z ]*\\d*"))
+                isGood = true;
+
+        return isGood;
     }
 
     /**
@@ -345,6 +365,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
 
             // TODO: register the new account here.
+            Intent resultIntent = new Intent();
+            setResult(1, resultIntent);
+
+            resultIntent.putExtra("email", mEmail);
+            resultIntent.putExtra("password", mPassword);
+
+            finish();
+
             return true;
         }
 
@@ -354,10 +382,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
+                //Login was successful, go to main screen
+                Intent resultIntent = new Intent();
+                setResult(2, resultIntent);
                 finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
             }
         }
 
