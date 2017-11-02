@@ -50,6 +50,9 @@ import static com.amazonaws.auth.policy.actions.DynamoDBv2Actions.Query;
 import com.amazonaws.mobile.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
+import pupper115.pupper.dbmapper.repos.UserMapperRepo;
+import pupper115.pupper.dbmapper.tables.TblUser;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -58,6 +61,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     // Amazon DB Client Object
     DynamoDBMapper dynamoDBMapper;
+    UserMapperRepo userMapRepo;
     String userId = "";
 
     /**
@@ -99,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
                 .build();
+        userMapRepo = new UserMapperRepo(dynamoDBClient);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -227,7 +232,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -355,13 +360,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
+            TblUser user = userMapRepo.getUser(mEmail);
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
+            if(user != null){
+                return mPassword.equals(user.getUserPassword());
             }
 
             // TODO: register the new account here.
