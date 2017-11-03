@@ -66,18 +66,18 @@ public class SplashActivity2 extends AppCompatActivity {
 
             case 1:
                 // New User
-                String eMail = data.getStringExtra("email");;
+                String userName = data.getStringExtra("userName");;
                 String password = data.getStringExtra("password");
 
                 final Intent intent3 = new Intent(this, NewUser.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                intent3.putExtra("email", eMail);
+                intent3.putExtra("userName", userName);
                 intent3.putExtra("password", password);
 
-                this.startActivity(intent3);
+                this.startActivityForResult(intent3, 2);
 
-                this.finish();
+                //this.finish();
                 break;
         }
     }

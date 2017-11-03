@@ -30,6 +30,7 @@ public class TblUser {
     public void setUserId(final String _userId) {
         this._userId = _userId;
     }
+
     @DynamoDBAttribute(attributeName = "isAdopting")
     public Boolean getIsAdopting() {
         return _isAdopting;
@@ -38,6 +39,7 @@ public class TblUser {
     public void setIsAdopting(final Boolean _isAdopting) {
         this._isAdopting = _isAdopting;
     }
+
     @DynamoDBAttribute(attributeName = "userEmail")
     public String getUserEmail() {
         return _userEmail;
@@ -46,6 +48,7 @@ public class TblUser {
     public void setUserEmail(final String _userEmail) {
         this._userEmail = _userEmail;
     }
+
     @DynamoDBAttribute(attributeName = "userFN")
     public String getUserFN() {
         return _userFN;
@@ -54,6 +57,7 @@ public class TblUser {
     public void setUserFN(final String _userFN) {
         this._userFN = _userFN;
     }
+
     @DynamoDBAttribute(attributeName = "userLN")
     public String getUserLN() {
         return _userLN;
@@ -62,6 +66,7 @@ public class TblUser {
     public void setUserLN(final String _userLN) {
         this._userLN = _userLN;
     }
+
     @DynamoDBAttribute(attributeName = "userPassword")
     public String getUserPassword() {
         return _userPassword;
@@ -70,5 +75,4 @@ public class TblUser {
     public void setUserPassword(final String _userPassword) {
         this._userPassword = _userPassword;
     }
-
 }

@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
+import android.widget.Toast;
 
 //Login
 import com.amazonaws.mobile.auth.core.IdentityProvider;
@@ -232,6 +233,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
+        if(email.isEmpty())
+            return false;
+
         return true;
     }
 
@@ -362,16 +366,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             TblUser user = userMapRepo.getUser(mEmail);
 
-            if(user != null){
-                return mPassword.equals(user.getUserPassword());
-            }
-
             // TODO: register the new account here.
             Intent resultIntent = new Intent();
             setResult(1, resultIntent);
 
-            resultIntent.putExtra("email", mEmail);
+            resultIntent.putExtra("userName", mEmail);
             resultIntent.putExtra("password", mPassword);
+
+            if(user != null) {
+                if (mPassword.equals(user.getUserPassword()))
+                    return true;
+                else
+                    return false;
+            }
 
             finish();
 
@@ -388,6 +395,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent resultIntent = new Intent();
                 setResult(2, resultIntent);
                 finish();
+            }
+            else {
+                //Else, the password was incorrect. Display the error
+                Context context = getApplicationContext();
+                CharSequence text = "The password does not match this profile's";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         }
 
