@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { java.srcDirs = ['src/main/java', 'src/main/java/pupper115.pupper'] } }
 }
 
 dependencies {
@@ -25,7 +26,6 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile('com.amazonaws:aws-android-sdk-auth-core:2.6.0@aar') { transitive = true; }
 
     //compile 'com.android.support:support-v4:24.+'
     compile('com.amazonaws:aws-android-sdk-auth-userpools:2.6.+@aar') { transitive = true; }
@@ -36,6 +36,7 @@ dependencies {
     compile 'com.android.support:design:26.+'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.amazonaws:aws-android-sdk-core:2.6.+'
+    compile('com.amazonaws:aws-android-sdk-auth-core:2.6.0@aar') { transitive = true; }
     compile 'com.amazonaws:aws-android-sdk-apigateway-core:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-ddb:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.6.+'

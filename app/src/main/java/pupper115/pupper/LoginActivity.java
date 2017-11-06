@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Context;
+import android.widget.Toast;
 
 //Login
 import com.amazonaws.mobile.auth.core.IdentityProvider;
@@ -50,6 +51,9 @@ import static com.amazonaws.auth.policy.actions.DynamoDBv2Actions.Query;
 import com.amazonaws.mobile.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
+import pupper115.pupper.dbmapper.repos.UserMapperRepo;
+import pupper115.pupper.dbmapper.tables.TblUser;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -58,6 +62,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     // Amazon DB Client Object
     DynamoDBMapper dynamoDBMapper;
+    UserMapperRepo userMapRepo;
     String userId = "";
 
     /**
@@ -99,6 +104,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
                 .build();
+        userMapRepo = new UserMapperRepo(dynamoDBClient);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -227,7 +233,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        if(email.isEmpty())
+            return false;
+
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
@@ -355,21 +364,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
+            TblUser user = userMapRepo.getUser(mEmail);
 
             // TODO: register the new account here.
             Intent resultIntent = new Intent();
             setResult(1, resultIntent);
 
-            resultIntent.putExtra("email", mEmail);
+            resultIntent.putExtra("userName", mEmail);
             resultIntent.putExtra("password", mPassword);
+
+            if(user != null) {
+                if (mPassword.equals(user.getUserPassword()))
+                    return true;
+                else
+                    return false;
+            }
 
             finish();
 
@@ -386,6 +395,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent resultIntent = new Intent();
                 setResult(2, resultIntent);
                 finish();
+            }
+            else {
+                //Else, the password was incorrect. Display the error
+                Context context = getApplicationContext();
+                CharSequence text = "The password does not match this profile's";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
             }
         }
 
