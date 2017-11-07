@@ -58,7 +58,7 @@ public class SplashActivity2 extends AppCompatActivity {
         switch(resultCode) {
             case 2:
                 // User is in the system
-                final Intent intent2 = new Intent(this, MainActivity.class)
+                final Intent intent2 = new Intent(this, SwipeThrough.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 this.startActivity(intent2);
                 this.finish();

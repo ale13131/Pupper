@@ -44,5 +44,8 @@ dependencies {
     compile 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.6.+'
     compile 'com.amazonaws:aws-android-sdk-s3:2.6.+'
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:design:26.+'
+    compile 'com.android.support:support-vector-drawable:26.+'
     testCompile 'junit:junit:4.12'
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pupper</string>
+    <string name="app_name">Pupper Home</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -15,4 +15,8 @@
         completions."
     </string>
     <string name="title_activity_splash2">SplashActivity2</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
