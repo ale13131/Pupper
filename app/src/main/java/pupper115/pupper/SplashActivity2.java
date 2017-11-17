@@ -1,18 +1,14 @@
 package pupper115.pupper;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
 import com.amazonaws.mobile.auth.core.StartupAuthResult;
 import android.content.Intent;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 public class SplashActivity2 extends AppCompatActivity {
 
@@ -31,25 +27,10 @@ public class SplashActivity2 extends AppCompatActivity {
             }
         });
 
-
-
-        // Go to the Login activity
-        // Comment out to bypass login page
-        ///*
         final Intent intent = new Intent(this, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         startActivityForResult(intent, 2);
-        //*/
-
-        //To bypass login screen, uncomment below
-        /*
-        final Intent intent = new Intent(this, MainActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        this.startActivity(intent);
-        this.finish();
-        */
     }
 
     @Override
@@ -60,13 +41,14 @@ public class SplashActivity2 extends AppCompatActivity {
         switch(resultCode) {
             case 2:
                 // User is in the system
-                final Intent intent2 = new Intent(this, CreateDogProfile.class)
+                final Intent intent2 = new Intent(this, SwipeThrough.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent2.putExtra("userName", userName);
                 intent2.putExtra("password", password);
 
                 this.startActivity(intent2);
                 this.finish();
+
                 break;
 
             case 1:
@@ -79,7 +61,6 @@ public class SplashActivity2 extends AppCompatActivity {
 
                 this.startActivityForResult(intent3, 2);
 
-                //this.finish();
                 break;
         }
     }
