@@ -61,6 +61,8 @@ public class SwipeThrough extends AppCompatActivity {
     private ArrayList<HashMap<String, Object>> transferRecordMaps;
     private TransferUtility transferUtility;
     private String pictureFile = "";
+    private String userName = "";
+    private String password = "";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,6 +78,10 @@ public class SwipeThrough extends AppCompatActivity {
 
                     Intent intent = new Intent(context, CreateDogProfile.class)
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("userName", userName);
+                    intent.putExtra("password", password);
+
+                    Log.d("NewFile", userName);
 
                     startActivityForResult(intent, 2);
 
@@ -93,6 +99,10 @@ public class SwipeThrough extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_through);
+
+        Intent data = getIntent();
+        userName = data.getStringExtra("userName");
+        password = data.getStringExtra("password");
 
         context = getApplication();
         transferUtility = Util.getTransferUtility(this);

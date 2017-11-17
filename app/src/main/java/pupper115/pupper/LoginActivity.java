@@ -379,6 +379,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             setResult(1, resultIntent);
 
             resultIntent.putExtra("userName", mEmail);
+            Log.d("NewFile", mEmail);
             resultIntent.putExtra("password", mPassword);
 
             if(user != null) {
@@ -402,6 +403,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 //Login was successful, go to main screen
                 Intent resultIntent = new Intent();
                 setResult(2, resultIntent);
+
+                resultIntent.putExtra("userName", mEmail);
+                Log.d("NewFile", mEmail);
+                resultIntent.putExtra("password", mPassword);
+
                 finish();
             }
             else {

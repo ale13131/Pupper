@@ -26,6 +26,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,9 @@ public class CreateDogProfile extends AppCompatActivity {
     private String dogName = "";
     private String dogAge = "";
     private String dogBio = "";
+
+    private String userName = "";
+    private String password = "";
 
     private static final int REQUEST_WRITE_PERMISSION = 786;
 
@@ -81,6 +85,10 @@ public class CreateDogProfile extends AppCompatActivity {
 
         EditText focus = (EditText) findViewById(R.id.name);
         focus.requestFocus();
+
+        Intent data = getIntent();
+        userName = data.getStringExtra("userName");
+        password = data.getStringExtra("password");
 
         // Initializes TransferUtility, always do this before using it.
         transferUtility = Util.getTransferUtility(this);
@@ -217,8 +225,9 @@ public class CreateDogProfile extends AppCompatActivity {
             return;
         }
         File file = new File(filePath);
-        TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME, file.getName(),
-                file);
+
+        TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME,
+                userName + "." + dogName, file);
         /*
          * Note that usually we set the transfer listener after initializing the
          * transfer. However it isn't required in this sample app. The flow is
