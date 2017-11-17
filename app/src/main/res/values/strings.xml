@@ -19,4 +19,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="pref_description_social_recommendations">Descript Social Recommendations</string>
+    <string name="pref_title_social_recommendations">Title Social Rec</string>
+    <string name="pref_default_display_name">Pupper</string>
+    <string name="pref_title_display_name">Huh</string>
+    <string name="pref_title_add_friends_to_messages">Add items to whatever</string>
+    <string name="pref_header_user_settings">User Settings</string>
+    <string name="pref_header_dog_settings">Dog Settings</string>
 </resources>

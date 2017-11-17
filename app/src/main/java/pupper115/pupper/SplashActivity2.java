@@ -60,7 +60,7 @@ public class SplashActivity2 extends AppCompatActivity {
         switch(resultCode) {
             case 2:
                 // User is in the system
-                final Intent intent2 = new Intent(this, CreateDogProfile.class)
+                final Intent intent2 = new Intent(this, SettingsActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent2.putExtra("userName", userName);
                 intent2.putExtra("password", password);
