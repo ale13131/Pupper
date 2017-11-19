@@ -1,102 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/container"
+    tools:context="pupper115.pupper.SettingsActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pupper115.pupper.SettingsActivity"
-    tools:layout_editor_absoluteY="81dp">
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <CheckBox
-        android:id="@+id/"
-        android:layout_width="adoptingFlag"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:text="Are you adopting?"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="386dp" />
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    <EditText
-        android:id="@+id/userEmail"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="168dp" />
+            <CheckBox
+                android:id="@+id/adoptingFlag"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/confirmPassword"
+                android:layout_marginTop="11dp"
+                android:checked="false"
+                android:text="Are you adopting?" />
 
-    <EditText
-        android:id="@+id/userFN"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="First name"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="63dp" />
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userLN"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/userLN"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Last name"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="116dp" />
+            <EditText
+                android:id="@+id/userFN"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="First name"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/confirmPassword"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Confirm new password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="279dp" />
+            <EditText
+                android:id="@+id/userLN"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userFN"
+                android:ems="10"
+                android:hint="Last name"
+                android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/currentPassowrd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Current password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="319dp" />
+            <EditText
+                android:id="@+id/confirmPassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/changePassword"
+                android:ems="10"
+                android:hint="Confirm new password"
+                android:inputType="textPassword" />
 
-    <EditText
-        android:id="@+id/changePassword"
-        s
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Change password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="213dp" />
+            <EditText
+                android:id="@+id/currentPassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/confirmButton"
+                android:layout_alignParentStart="true"
+                android:ems="10"
+                android:hint="Current password"
+                android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm settings"
-        tools:layout_editor_absoluteX="240dp"
-        tools:layout_editor_absoluteY="537dp" />
+            <EditText
+                android:id="@+id/changePassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userEmail"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Change password"
+                android:inputType="textPassword" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="13dp"
+                android:onClick="trySaveUserSettings"
+                android:text="Confirm settings" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="258dp"
-        android:layout_height="38dp"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="16dp" />
-</android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

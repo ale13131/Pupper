@@ -394,6 +394,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 //Login was successful, go to main screen
                 Intent resultIntent = new Intent();
+                resultIntent.putExtra("userName", mEmail);
+                resultIntent.putExtra("password", mPassword);
                 setResult(2, resultIntent);
                 finish();
             }

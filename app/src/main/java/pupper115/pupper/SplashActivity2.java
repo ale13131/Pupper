@@ -24,7 +24,7 @@ public class SplashActivity2 extends AppCompatActivity {
         AWSConfiguration awsConfig = new AWSConfiguration(appContext);
         IdentityManager identityManager = new IdentityManager(appContext, awsConfig);
         IdentityManager.setDefaultIdentityManager(identityManager);
-        identityManager.doStartupAuth(this, new StartupAuthResultHandler() {
+        identityManager.resumeSession(this, new StartupAuthResultHandler() {
             @Override
             public void onComplete(StartupAuthResult startupAuthResult) {
                 // User identity is ready as unauthenticated user or previously signed-in user.
