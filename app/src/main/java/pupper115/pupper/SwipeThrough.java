@@ -1,5 +1,6 @@
 package pupper115.pupper;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class SwipeThrough extends AppCompatActivity {
+public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
 
@@ -45,4 +46,7 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
 
+    public void onFragmentInteraction(Uri uri){
+        //
+    }
 }

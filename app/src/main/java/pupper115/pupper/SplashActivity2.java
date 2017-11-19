@@ -1,18 +1,14 @@
 package pupper115.pupper;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
-import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobile.auth.core.IdentityManager;
-import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
 import com.amazonaws.mobile.auth.core.StartupAuthResult;
-import android.content.Intent;
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
+import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
+import com.amazonaws.mobile.config.AWSConfiguration;
 
 public class SplashActivity2 extends AppCompatActivity {
 
@@ -24,7 +20,7 @@ public class SplashActivity2 extends AppCompatActivity {
         AWSConfiguration awsConfig = new AWSConfiguration(appContext);
         IdentityManager identityManager = new IdentityManager(appContext, awsConfig);
         IdentityManager.setDefaultIdentityManager(identityManager);
-        identityManager.doStartupAuth(this, new StartupAuthResultHandler() {
+        identityManager.resumeSession(this, new StartupAuthResultHandler() {
             @Override
             public void onComplete(StartupAuthResult startupAuthResult) {
                 // User identity is ready as unauthenticated user or previously signed-in user.
