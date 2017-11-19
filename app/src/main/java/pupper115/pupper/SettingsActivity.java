@@ -148,13 +148,13 @@ public class SettingsActivity extends AppCompatActivity {
             pass = false;
         }
 
-        else if (userLN.isEmpty()){
-            mUserLN.setError("First name field is empty");
+        if (userLN.isEmpty()){
+            mUserLN.setError("Last name field is empty");
             focusView = mUserFN;
             pass = false;
         }
 
-        else if (TextUtils.isEmpty(userEmail)){
+        if (TextUtils.isEmpty(userEmail)){
             mUserEmail.setError("Email field is empty");
             focusView = mUserEmail;
             pass = false;
@@ -165,16 +165,26 @@ public class SettingsActivity extends AppCompatActivity {
             focusView = mUserEmail;
             pass = false;
         }
+
         //TODO:Fix password updating
-        if (mConfirmPassword.isEnabled()){
-            if(isPasswordValid(changePassword)) {
-                if (!confirmPassword.equals(changePassword)) {
-                    mConfirmPassword.setError("Passwords do not match!");
+        if(!TextUtils.isEmpty(changePassword)){
+            if(!isPasswordValid(changePassword)){
+                mChangePassword.setError("Password must be 8 characters and have at " +
+                        "least one of each: 1 character and 1 number");
+                focusView = mChangePassword;
+                pass = false;
+            }else {
+                if(TextUtils.isEmpty(confirmPassword)){
+                    mConfirmPassword.setError("Please confirm your changed password");
                     focusView = mConfirmPassword;
                     pass = false;
-                } else {
-                    changedFlag = true;
+                }else if (changePassword.compareTo(confirmPassword) != 0){
+                    mConfirmPassword.setError("Passwords does not match");
+                    focusView = mConfirmPassword;
+                    pass = false;
+                }else{
                     pass = true;
+                    changedFlag = true;
                 }
             }
         }
