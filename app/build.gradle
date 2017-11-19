@@ -40,6 +40,7 @@ dependencies {
     compile('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
 
     //compile 'com.amazonaws:aws-java-sdk-core:1.+'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

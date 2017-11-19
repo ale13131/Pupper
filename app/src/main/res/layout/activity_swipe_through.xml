@@ -25,11 +25,30 @@
 
             <ImageView
                 android:id="@+id/doggo"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/doggo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/doggo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="120dp"
+                android:text="Loading, please wait"
+                android:textSize="26dp"
+                android:textColor="#FFF"
+                android:background="#808080"/>
+
+            <ImageView
+                android:id="@+id/doggo1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/doggo2" />
+                app:srcCompat="@drawable/doggo" />
 
             <Button
                 android:id="@+id/next"

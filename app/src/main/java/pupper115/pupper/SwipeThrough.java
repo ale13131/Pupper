@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
@@ -27,6 +28,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -63,6 +65,8 @@ public class SwipeThrough extends AppCompatActivity {
     private String pictureFile = "";
     private String userName = "";
     private String password = "";
+    private int counter = 0;
+    private String lastPicture = "init";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -117,11 +121,19 @@ public class SwipeThrough extends AppCompatActivity {
     public void getMoreInfo(View v)
     {
         //Here is where the dog info will appear over the actual picture
+        if(counter < 2)
+        {
+            Context context = getApplicationContext();
+            CharSequence text = "This dog isn't in the S3 bucket!!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 
-    public void getNextDog(View v)
-    {
-        ImageView img = (ImageView) findViewById(R.id.doggo);
+    public void getNextDog(View v) {
+        ImageView img = (ImageView) findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
         Object [] array = transferRecordMaps.toArray();
@@ -131,38 +143,66 @@ public class SwipeThrough extends AppCompatActivity {
         int n = rand.nextInt(range);
 
         Object nextPicture = array[n];
+
         String pictureName = nextPicture.toString();
         pictureName = pictureName.substring(5, pictureName.length() - 1);
 
-        new DownloadFileFromURL().execute("https://s3.amazonaws.com/pupper-user-info/" + pictureName);
-        img.setImageBitmap(BitmapFactory.decodeFile(pictureFile));
-        Log.d("Location", pictureFile);
+        while(lastPicture.equals(pictureName))
+        {
+            if(n == 0)
+                ++n;
+            else if(n == (1 - range))
+                --n;
+            else
+                ++n;
+            nextPicture = array[n];
 
-        //observer.setTransferListener(new DownloadListener());
+            pictureName = nextPicture.toString();
+            pictureName = pictureName.substring(5, pictureName.length() - 1);
+        }
+        lastPicture = pictureName;
+        Log.d("Picture", pictureName);
+
+        //new DownloadFileFromURL().execute("https://s3.amazonaws.com/pupper-user-info/" + pictureName);
+        //Bitmap dogPicture = BitmapFactory.decodeFile(pictureFile);
+
+        //img.setImageBitmap(dogPicture);
+        //img.invalidate();
+        Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
+                .resize(1200, 1800).centerInside().into(img);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Loading the good doggo...";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        ++counter;
     }
 
-    private ProgressDialog pDialog;
+    /*private ProgressDialog pDialog;
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread
-         * */
+
+         //* Before starting background thread
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             System.out.println("Starting download");
 
             pDialog = new ProgressDialog(SwipeThrough.this);
-            pDialog.setMessage("Loading... Please wait...");
+            pDialog.setMessage("Loading info... Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
         }
 
-        /**
-         * Downloading file in background thread
-         * */
+
+         //* Downloading file in background thread
+
         @Override
         protected String doInBackground(String... f_url) {
             int count;
@@ -193,7 +233,6 @@ public class SwipeThrough extends AppCompatActivity {
 
                     // writing data to file
                     output.write(data, 0, count);
-
                 }
 
                 // flushing output
@@ -211,10 +250,8 @@ public class SwipeThrough extends AppCompatActivity {
         }
 
 
+        // * After completing background task
 
-        /**
-         * After completing background task
-         * **/
         @Override
         protected void onPostExecute(String file_url) {
             System.out.println("Downloaded");
@@ -222,7 +259,7 @@ public class SwipeThrough extends AppCompatActivity {
             pDialog.dismiss();
         }
 
-    }
+    }*/
 
 
     private void initData() {
