@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    tools:context="pupper115.pupper.SettingsActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <CheckBox
+                android:id="@+id/adoptingFlag"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/confirmPassword"
+                android:layout_marginTop="11dp"
+                android:checked="false"
+                android:text="Are you adopting?" />
+
+            <EditText
+                android:id="@+id/userEmail"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userLN"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/userFN"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:ems="10"
+                android:hint="First name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/userLN"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userFN"
+                android:ems="10"
+                android:hint="Last name"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/confirmPassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/changePassword"
+                android:ems="10"
+                android:hint="Confirm new password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/currentPassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/confirmButton"
+                android:layout_alignParentStart="true"
+                android:ems="10"
+                android:hint="Current password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/changePassword"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/userEmail"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Change password"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="14dp"
+                android:layout_marginEnd="13dp"
+                android:onClick="trySaveUserSettings"
+                android:text="Confirm settings" />
+
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

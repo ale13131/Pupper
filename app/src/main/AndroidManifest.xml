@@ -27,7 +27,7 @@
             android:label="Pupper" />
         <activity
             android:name=".NewUser"
-            android:label="Pupper"/>
+            android:label="Pupper" />
         <activity
             android:name=".SwipeThrough"
             android:label="Pupper" />
@@ -40,11 +40,18 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Pupper" />
+
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
+
     </application>
+
 </manifest>

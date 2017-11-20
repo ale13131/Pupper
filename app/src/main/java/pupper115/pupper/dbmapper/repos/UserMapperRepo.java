@@ -15,7 +15,7 @@ public class UserMapperRepo {
         dbMapper = new DynamoDBMapper(amazondynamoDB);
     }
 
-    public void insert(TblUser user){
+    public void save(TblUser user){
         dbMapper.save(user);
     }
 
@@ -24,4 +24,6 @@ public class UserMapperRepo {
 
         return user;
     }
+
+
 }

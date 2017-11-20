@@ -44,7 +44,7 @@ public class SplashActivity2 extends AppCompatActivity {
             case 2:
                 // User is in the system
                 final Intent intent2 = new Intent(this, SwipeThrough.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	                  .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent2.putExtra("userName", userName);
                 intent2.putExtra("password", password);
 
