@@ -372,6 +372,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             setResult(1, resultIntent);
 
             resultIntent.putExtra("userName", mEmail);
+            Log.d("NewFile", mEmail);
             resultIntent.putExtra("password", mPassword);
 
             if(user != null) {
@@ -397,6 +398,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 resultIntent.putExtra("userName", mEmail);
                 resultIntent.putExtra("password", mPassword);
                 setResult(2, resultIntent);
+
+                resultIntent.putExtra("userName", mEmail);
+                Log.d("NewFile", mEmail);
+                resultIntent.putExtra("password", mPassword);
+
                 finish();
             }
             else {
