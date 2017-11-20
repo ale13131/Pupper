@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_example_list_titles">
+        <item>Title 1</item>
+        <item>Title 2</item>
+        <item>Title 3</item>
+    </string-array>
+
+    <string-array name="pref_example_list_values">
+        <item>Value 1</item>
+        <item>Vaalue 2</item>
+        <item>Value 3</item>
+    </string-array>
+
+
+    <string-array name="pref_sync_frequency_titles">
+        <item>Sync freq title 1</item>
+        <item>Sync Freq Title 2</item>
+        <item>Sync title 3</item>
+    </string-array>
+
+    <string-array name="pref_sync_frequency_values">
+        <item>Sync freq val 1</item>
+        <item>Sync Freq val 2</item>
+        <item>Sync val 3</item>
+    </string-array>
+</resources>

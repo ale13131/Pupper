@@ -50,21 +50,23 @@ public class SplashActivity2 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String userName = data.getStringExtra("userName");
+        String password = data.getStringExtra("password");
 
         switch(resultCode) {
             case 2:
                 // User is in the system
-                final Intent intent2 = new Intent(this, SwipeThrough.class)
+                final Intent intent2 = new Intent(this, SettingsActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent2.putExtra("userName", userName);
+                intent2.putExtra("password", password);
+
                 this.startActivity(intent2);
                 this.finish();
                 break;
 
             case 1:
                 // New User
-                String userName = data.getStringExtra("userName");;
-                String password = data.getStringExtra("password");
-
                 final Intent intent3 = new Intent(this, NewUser.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
