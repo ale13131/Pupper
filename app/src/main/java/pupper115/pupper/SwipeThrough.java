@@ -3,13 +3,8 @@ package pupper115.pupper;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -19,28 +14,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,9 +42,10 @@ public class SwipeThrough extends AppCompatActivity {
     private SimpleAdapter simpleAdapter;
     private ArrayList<HashMap<String, Object>> transferRecordMaps;
     private TransferUtility transferUtility;
-    private String pictureFile = "";
     private String userName = "";
     private String password = "";
+    private int counter = 0;
+    private String lastPicture = "init";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -108,7 +91,6 @@ public class SwipeThrough extends AppCompatActivity {
         transferUtility = Util.getTransferUtility(this);
         initData();
 
-        //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -117,11 +99,19 @@ public class SwipeThrough extends AppCompatActivity {
     public void getMoreInfo(View v)
     {
         //Here is where the dog info will appear over the actual picture
+        if(counter < 2)
+        {
+            Context context = getApplicationContext();
+            CharSequence text = "This dog isn't in the S3 bucket!!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 
-    public void getNextDog(View v)
-    {
-        ImageView img = (ImageView) findViewById(R.id.doggo);
+    public void getNextDog(View v) {
+        ImageView img = (ImageView) findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
         Object [] array = transferRecordMaps.toArray();
@@ -131,99 +121,37 @@ public class SwipeThrough extends AppCompatActivity {
         int n = rand.nextInt(range);
 
         Object nextPicture = array[n];
+
         String pictureName = nextPicture.toString();
         pictureName = pictureName.substring(5, pictureName.length() - 1);
 
-        new DownloadFileFromURL().execute("https://s3.amazonaws.com/pupper-user-info/" + pictureName);
-        img.setImageBitmap(BitmapFactory.decodeFile(pictureFile));
-        Log.d("Location", pictureFile);
+        while(lastPicture.equals(pictureName))
+        {
+            if(n == 0)
+                ++n;
+            else if(n == (1 - range))
+                --n;
+            else
+                ++n;
+            nextPicture = array[n];
 
-        //observer.setTransferListener(new DownloadListener());
+            pictureName = nextPicture.toString();
+            pictureName = pictureName.substring(5, pictureName.length() - 1);
+        }
+        lastPicture = pictureName;
+
+        Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
+                .resize(1200, 1800).centerInside().into(img);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Loading the good doggo...";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        ++counter;
     }
-
-    private ProgressDialog pDialog;
-
-    class DownloadFileFromURL extends AsyncTask<String, String, String> {
-
-        /**
-         * Before starting background thread
-         * */
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            System.out.println("Starting download");
-
-            pDialog = new ProgressDialog(SwipeThrough.this);
-            pDialog.setMessage("Loading... Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-        }
-
-        /**
-         * Downloading file in background thread
-         * */
-        @Override
-        protected String doInBackground(String... f_url) {
-            int count;
-            try {
-                String root = Environment.getExternalStorageDirectory().toString();
-
-                System.out.println("Downloading");
-                URL url = new URL(f_url[0]);
-
-                URLConnection conection = url.openConnection();
-                conection.connect();
-                // getting file length
-                int lenghtOfFile = conection.getContentLength();
-
-                // input stream to read file - with 8k buffer
-                InputStream input = new BufferedInputStream(url.openStream(), 8192);
-
-                // Output stream to write file
-
-                OutputStream output = new FileOutputStream(root + "/downloadedfile.jpg");
-                pictureFile = root + "/downloadedfile.jpg";
-
-                byte data[] = new byte[1024];
-
-                long total = 0;
-                while ((count = input.read(data)) != -1) {
-                    total += count;
-
-                    // writing data to file
-                    output.write(data, 0, count);
-
-                }
-
-                // flushing output
-                output.flush();
-
-                // closing streams
-                output.close();
-                input.close();
-
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
-            }
-
-            return null;
-        }
-
-
-
-        /**
-         * After completing background task
-         * **/
-        @Override
-        protected void onPostExecute(String file_url) {
-            System.out.println("Downloaded");
-
-            pDialog.dismiss();
-        }
-
-    }
-
 
     private void initData() {
         // Gets the default S3 client.

@@ -49,7 +49,7 @@ public class SplashActivity2 extends AppCompatActivity {
                 intent2.putExtra("password", password);
 
                 this.startActivity(intent2);
-                //this.finish();
+                this.finish();
 
                 break;
 
