@@ -8,14 +8,9 @@
     android:orientation="vertical"
     tools:context="pupper115.pupper.SwipeThrough">
 
-    <fragment
-        android:name="pupper115.pupper.FragmentType1"
-        android:id="@+id/fragmentType1"
-        android:layout_weight="1"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="match_parent" />
-=======
         android:layout_height="0dp"
         android:layout_weight="1">
 
@@ -78,7 +73,6 @@
         </RelativeLayout>
 
     </FrameLayout>
->>>>>>> S3-Bucket
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

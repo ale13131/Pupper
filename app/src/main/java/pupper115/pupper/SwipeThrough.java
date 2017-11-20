@@ -1,13 +1,9 @@
 package pupper115.pupper;
 
-<<<<<<< HEAD
-import android.net.Uri;
-=======
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
->>>>>>> S3-Bucket
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -35,7 +31,7 @@ import java.util.Random;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
-public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnFragmentInteractionListener {
+public class SwipeThrough extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Context context;
@@ -56,17 +52,10 @@ public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnF
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            item.setChecked(true);
-            /*switch (item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.navigation_home:
-<<<<<<< HEAD
-                    pushFragment(new BlankFragment());
-                    //mTextMessage.setText(R.string.title_home);
-                    return true;
-=======
                     //Should be the main page
                     break;
->>>>>>> S3-Bucket
                 case R.id.navigation_dashboard:
                     //Should be the upload page
 
@@ -81,17 +70,10 @@ public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnF
 
                     break;
                 case R.id.navigation_notifications:
-<<<<<<< HEAD
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }*/
-            return false;
-=======
                     //Sould be the settings page
                     break;
             }
             return true;
->>>>>>> S3-Bucket
         }
 
     };
@@ -113,24 +95,16 @@ public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnF
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-<<<<<<< HEAD
-
-    public void onFragmentInteraction(Uri uri){
-        //
-=======
     //ADDED by Josh until bottom
     public void getMoreInfo(View v)
     {
         //Here is where the dog info will appear over the actual picture
-        if(counter < 2)
-        {
-            Context context = getApplicationContext();
-            CharSequence text = "This dog isn't in the S3 bucket!!";
-            int duration = Toast.LENGTH_SHORT;
+        Context context = getApplicationContext();
+        CharSequence text = "This hasn't been programmed yet :-(";
+        int duration = Toast.LENGTH_SHORT;
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
-        }
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     public void getNextDog(View v) {
@@ -241,6 +215,5 @@ public class SwipeThrough extends AppCompatActivity implements FragmentType1.OnF
         public void onStateChanged(int id, TransferState state) {
             Log.d("DownloadListener", "onStateChanged: " + id + ", " + state);
         }
->>>>>>> S3-Bucket
     }
 }
