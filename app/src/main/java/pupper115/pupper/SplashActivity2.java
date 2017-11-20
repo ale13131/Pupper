@@ -1,27 +1,15 @@
 package pupper115.pupper;
 
-<<<<<<< HEAD
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-=======
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
-import com.amazonaws.mobile.config.AWSConfiguration;
->>>>>>> S3-Bucket
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.auth.core.StartupAuthResult;
-<<<<<<< HEAD
 import com.amazonaws.mobile.auth.core.StartupAuthResultHandler;
 import com.amazonaws.mobile.config.AWSConfiguration;
-=======
-import android.content.Intent;
-import android.content.Context;
-import android.util.Log;
->>>>>>> S3-Bucket
 
 public class SplashActivity2 extends AppCompatActivity {
 
