@@ -71,6 +71,15 @@ public class SwipeThrough extends AppCompatActivity {
                     break;
                 case R.id.navigation_notifications:
                     //Sould be the settings page
+                    Intent intent2 = new Intent(context, SettingsActivity.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent2.putExtra("userName", userName);
+                    intent2.putExtra("password", password);
+
+                    Log.d("NewFile", userName);
+
+                    startActivityForResult(intent2, 2);
+
                     break;
             }
             return true;

@@ -17,8 +17,8 @@
     <string name="title_activity_splash2">SplashActivity2</string>
 
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Create new dog!</string>
+    <string name="title_notifications">Settings</string>
 
     <string name="pref_description_social_recommendations">Descript Social Recommendations</string>
     <string name="pref_title_social_recommendations">Title Social Rec</string>
