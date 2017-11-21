@@ -1,0 +1,22 @@
+[
+  {
+    "url":"https://static.pexels.com/photos/33053/dog-young-dog-small-dog-maltese.jpg",
+    "name":"sofia",
+    "age":"7",
+    "location":""
+  },
+
+  {
+    "url":"https://www.nationalgeographic.com/content/dam/animals/thumbs/rights-exempt/mammals/d/domestic-dog_thumb.jpg",
+    "name":"jack",
+    "age":"2",
+    "location":""
+  },
+
+  {
+    "url":"https://www.petfinder.com/wp-content/uploads/2012/11/91254966-mast-cell-tumors-dogs-stomach-ulcers-251x189.jpg",
+    "name":"aaron",
+    "age":"23",
+    "location":"garden grove"
+  }
+]
