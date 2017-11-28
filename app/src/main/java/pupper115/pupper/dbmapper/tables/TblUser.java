@@ -15,7 +15,6 @@ import java.util.Set;
 
 public class TblUser {
     private String _userId;
-    private Map<String, String> _dogIDs;
     private Boolean _isAdopting;
     private String _userEmail;
     private String _userFN;
@@ -30,15 +29,6 @@ public class TblUser {
 
     public void setUserId(final String _userId) {
         this._userId = _userId;
-    }
-
-    @DynamoDBAttribute(attributeName = "dogIDs")
-    public Map<String, String> getDogIDs() {
-        return _dogIDs;
-    }
-
-    public void setDogIDs(final Map<String, String> _dogIDs) {
-        this._dogIDs = _dogIDs;
     }
 
     @DynamoDBAttribute(attributeName = "isAdopting")
