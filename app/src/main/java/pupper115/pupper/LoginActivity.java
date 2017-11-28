@@ -42,6 +42,8 @@ import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 // Import the following for DB API calls
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -233,7 +235,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(email);
+        boolean b = m.find();
+
         if(email.isEmpty())
+            return false;
+        else if(b)
             return false;
 
         return true;
