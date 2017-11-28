@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 <resources>
-    <string name="app_name">Pupper</string>
+    <string name="app_name">Pupper_UI_SwipeScreen</string>
+</resources>
+=======
+<resources>
+    <string name="app_name">Pupper Home</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -17,17 +22,7 @@
     <string name="title_activity_splash2">SplashActivity2</string>
 
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Create new dog!</string>
-    <string name="title_notifications">Settings</string>
-
-    <string name="pref_description_social_recommendations">Descript Social Recommendations</string>
-    <string name="pref_title_social_recommendations">Title Social Rec</string>
-    <string name="pref_default_display_name">Pupper</string>
-    <string name="pref_title_display_name">Huh</string>
-    <string name="pref_title_add_friends_to_messages">Add items to whatever</string>
-    <string name="pref_header_user_settings">User Settings</string>
-    <string name="pref_header_dog_settings">Dog Settings</string>
-    <string name="title_activity_setting">SettingActivity</string>
-    <string name="defaultDogName">Doggo</string>
-    <string name="defaultDogInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
+>>>>>>> Initial Push

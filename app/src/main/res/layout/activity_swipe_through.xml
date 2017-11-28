@@ -14,63 +14,11 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <ImageView
-                android:id="@+id/doggo"
-                android:layout_width="175dp"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/doggo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/doggo"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="120dp"
-                android:text="Loading, please wait"
-                android:textSize="26dp"
-                android:textColor="#FFF"
-                android:background="#808080"/>
-
-            <ImageView
-                android:id="@+id/doggo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/doggo" />
-
-            <Button
-                android:id="@+id/next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="63dp"
-                android:onClick="getNextDog"
-                android:text="Next Dog" />
-
-            <Button
-                android:id="@+id/info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="55dp"
-                android:onClick="getMoreInfo"
-                android:text="More Info" />
-
-        </RelativeLayout>
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/doggo2" />
 
     </FrameLayout>
 
