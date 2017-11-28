@@ -16,7 +16,7 @@ public class DogMapperRepo {
         dbMapper = new DynamoDBMapper(amazondynamoDB);
     }
 
-    public void insert(TblDog dog){
+    public void save(TblDog dog){
         dbMapper.save(dog);
     }
 

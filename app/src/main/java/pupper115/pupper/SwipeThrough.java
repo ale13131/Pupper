@@ -64,9 +64,7 @@ public class SwipeThrough extends AppCompatActivity {
                     intent.putExtra("userName", userName);
                     intent.putExtra("password", password);
 
-                    Log.d("NewFile", userName);
-
-                    startActivityForResult(intent, 2);
+                    startActivity(intent);
 
                     break;
                 case R.id.navigation_notifications:
@@ -76,9 +74,7 @@ public class SwipeThrough extends AppCompatActivity {
                     intent2.putExtra("userName", userName);
                     intent2.putExtra("password", password);
 
-                    Log.d("NewFile", userName);
-
-                    startActivityForResult(intent2, 2);
+                    startActivity(intent2);
 
                     break;
             }
@@ -122,6 +118,13 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
     public void getNextDog(View v) {
+        Context context = getApplicationContext();
+        CharSequence text = "Loading the good doggo...";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
         ImageView img = (ImageView) findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
@@ -153,13 +156,6 @@ public class SwipeThrough extends AppCompatActivity {
 
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
-
-        Context context = getApplicationContext();
-        CharSequence text = "Loading the good doggo...";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
 
         ++counter;
     }

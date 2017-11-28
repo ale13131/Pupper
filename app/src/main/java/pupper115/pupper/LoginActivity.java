@@ -234,6 +234,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         if(email.isEmpty())
             return false;
+        else if(email.contains("."))
+            return false;
         else if(b)
             return false;
 
