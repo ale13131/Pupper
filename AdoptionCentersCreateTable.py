@@ -1,7 +1,7 @@
 from _future_ import print_function
 import boto3
 
-dynamodb = boto3.resource('dynamodb', region_name = 'us-west-2', endpoint_url"
+dynamodb = boto3.resource('dynamodb', region_name = 'us-east-1', endpoint_url"
 
 
 table = dynamodb.create_table(
