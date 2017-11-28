@@ -20,8 +20,8 @@ public class DogMapperRepo {
         dbMapper.save(dog);
     }
 
-    public TblDog getDog(String dogname){
-        TblDog dog = dbMapper.load(TblDog.class,dogname);
+    public TblDog getDog(String dogname, String owner){
+        TblDog dog = dbMapper.load(TblDog.class,dogname,owner);
 
         return dog;
     }

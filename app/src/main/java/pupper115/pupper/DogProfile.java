@@ -59,7 +59,7 @@ public class DogProfile extends AppCompatActivity {
         }
 
         setImage(dogImage);
-        //setData(dogImage);
+        setData(dogImage);
     }
 
     private void setImage( String imageName){
@@ -108,7 +108,11 @@ public class DogProfile extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params){
             Log.d("ID:", dogImage);
-            dog = dogMapRepo.getDog(dogImage);
+
+            StringTokenizer tokens = new StringTokenizer(dogImage, ".");
+            String first = tokens.nextToken(); //Dog owner ID
+
+            dog = dogMapRepo.getDog(dogImage, first);
             if (dog != null){
                 Log.d("Results", "WORKED!!!!");
                 return true;
