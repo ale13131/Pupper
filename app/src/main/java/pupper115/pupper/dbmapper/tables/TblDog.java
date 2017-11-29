@@ -23,6 +23,7 @@ public class TblDog {
     private String _dogLocation;
     private String _dogName;
     private Boolean _isOwned;
+    private Double _numOfLikes;
 
     @DynamoDBHashKey(attributeName = "userId")
     @DynamoDBAttribute(attributeName = "userId")
@@ -99,4 +100,13 @@ public class TblDog {
         this._isOwned = _isOwned;
     }
 
+    @DynamoDBAttribute(attributeName = "numOfLikes")
+    public Double getLikes() {
+        return _numOfLikes;
+    }
+
+    public void likeDog() {
+        ++this._numOfLikes;
+    }
+    public void setLikes(final Double _numOfLikes) { this._numOfLikes = _numOfLikes; }
 }

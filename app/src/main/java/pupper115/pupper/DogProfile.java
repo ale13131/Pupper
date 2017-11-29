@@ -2,11 +2,12 @@ package pupper115.pupper;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.util.StringTokenizer;
 
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
-import pupper115.pupper.dbmapper.repos.UserMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
-import pupper115.pupper.dbmapper.tables.TblUser;
 
 public class DogProfile extends AppCompatActivity {
     private Context context;
@@ -81,15 +80,29 @@ public class DogProfile extends AppCompatActivity {
         else
             bio = bio + "not up to be adopted. Sorry";
 
-        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ". ";
+        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ": \n";
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
 
         TextView name = (TextView) findViewById(R.id.textViewDogName);
         TextView info = (TextView) findViewById(R.id.textViewDogInfo);
 
+        Button likes = (Button) findViewById(R.id.like);
+        Double num = dog.getLikes();
+        likes.setText("Likes: " + num.intValue());
+
         name.setText(dog.getDogName());
         info.setText(bio);
+    }
+
+    public void likeDog(View v)
+    {
+        Button likes = (Button) findViewById(R.id.like);
+        Double num = dog.getLikes();
+        dog.likeDog();
+        ++num;
+        likes.setText("Likes: " + num.intValue());
+        likes.setClickable(false);
     }
 
     private class dogTaskPull extends AsyncTask<Void, Void, Boolean> {
@@ -107,10 +120,9 @@ public class DogProfile extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params){
-            Log.d("ID:", dogImage);
-
             StringTokenizer tokens = new StringTokenizer(dogImage, ".");
             String first = tokens.nextToken(); //Dog owner ID
+            Log.d("ID:", dogImage + "     " + first);
 
             dog = dogMapRepo.getDog(dogImage, first);
             if (dog != null){

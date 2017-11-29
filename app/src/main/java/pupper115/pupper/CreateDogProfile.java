@@ -289,6 +289,7 @@ public class CreateDogProfile extends AppCompatActivity {
         newDog.setOwnerId(userName);
         newDog.setIsOwned(canBeAdopted);
         newDog.setDogBio(dogBio);
+        newDog.setLikes(0.0);
 
         mAuthTask = new DogRegisterTask(true, newDog);
         mAuthTask.execute((Void) null);
