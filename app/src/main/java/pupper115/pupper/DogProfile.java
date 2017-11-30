@@ -3,6 +3,7 @@ package pupper115.pupper;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -161,7 +162,7 @@ public class DogProfile extends AppCompatActivity {
         }
         if(comments.contains("null") == false)
         {
-            bio = bio + "\n ------------Comments------------";
+            bio = bio + "\n\n --------------------------Comments--------------------------";
             bio = bio + comments;
         }
 
@@ -172,8 +173,11 @@ public class DogProfile extends AppCompatActivity {
         Double num = dog.getLikes();
         String likedBy = dog.getLikedBy();
         likes.setText("Likes: " + num.intValue());
-        if(likedBy.contains(userName))
+        if(likedBy.contains(userName)) {
             likes.setClickable(false);
+            likes.setBackgroundColor(Color.DKGRAY);
+            likes.setTextColor(Color.WHITE);
+        }
 
         name.setText(dog.getDogName());
         info.setText(bio);
@@ -187,6 +191,8 @@ public class DogProfile extends AppCompatActivity {
         ++num;
         likes.setText("Likes: " + num.intValue());
         likes.setClickable(false);
+        likes.setBackgroundColor(Color.DKGRAY);
+        likes.setTextColor(Color.WHITE);
         dog.setLikedBy(userName);
         mAuthTask = new DogRegisterTask(true, dog);
         mAuthTask.execute((Void) null);
