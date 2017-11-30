@@ -28,7 +28,9 @@ import com.squareup.picasso.Picasso;
 import java.util.StringTokenizer;
 
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
+import pupper115.pupper.dbmapper.repos.UserMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
+import pupper115.pupper.dbmapper.tables.TblUser;
 
 /**
  * Created by Joseph
@@ -52,6 +54,9 @@ public class DogProfile extends AppCompatActivity {
     String userName = "";
     private DogRegisterTask mAuthTask = null;
 
+    TblUser user;
+    UserMapperRepo userMapRepo;
+
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
 
@@ -70,6 +75,7 @@ public class DogProfile extends AppCompatActivity {
                 .awsConfiguration(awsConfig)
                 .build();
         dogMapRepo = new DogMapperRepo(dynamoDBClient);
+        userMapRepo = new UserMapperRepo(dynamoDBClient);
 
         mPullTask = new DogProfile.dogTaskPull();
         try {
@@ -142,15 +148,15 @@ public class DogProfile extends AppCompatActivity {
     {
         Log.d("Image", image);
         bio = "The current owner of ";
-        bio = bio + dog.getDogName() + " is " + dog.getOwnerId() + ". ";
+        bio = bio + dog.getDogName() + " is " + user.getUserFN() + ". \r\n" ;
         bio = bio + dog.getDogName() + " is currently ";
         //Pull from dog table if the dog is up for adoption
         if(dog.getIsOwned() == false)
-            bio = bio + "up for adoption! Contact " + dog.getOwnerId() + " for details";
+            bio = bio + "up for adoption! Contact " + user.getUserFN() + " for details";
         else
             bio = bio + "not up to be adopted. Sorry";
 
-        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ": \r\n";
+        bio = bio + ".\r\nHere is a quick bio of " + dog.getDogName() + " from " + user.getUserFN() + ": \n";
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
 
@@ -202,7 +208,7 @@ public class DogProfile extends AppCompatActivity {
     {
         //Create an activity to write a comment
         Intent intent = new Intent(context, AddComment.class);
-        intent.putExtra("userName", userName);
+        intent.putExtra("userFN", user.getUserFN());
         startActivityForResult(intent, 1);
     }
 
@@ -247,6 +253,8 @@ public class DogProfile extends AppCompatActivity {
             Log.d("ID:", dogImage + "     " + first);
 
             dog = dogMapRepo.getDog(dogImage, first);
+            user = userMapRepo.getUser(first);
+
             if (dog != null){
                 Log.d("Results", "WORKED!!!!");
                 return true;

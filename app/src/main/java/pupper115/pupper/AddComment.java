@@ -19,14 +19,14 @@ import android.widget.Toast;
 public class AddComment extends AppCompatActivity
 {
     Context context;
-    String userName = "";
+    String userFN = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_comment);
 
         Bundle extras = getIntent().getExtras();
-        userName = extras.getString("userName");
+        userFN = extras.getString("userFN");
 
         context = getApplication();
     }
@@ -38,7 +38,7 @@ public class AddComment extends AppCompatActivity
 
         if(cBox.getText().toString().isEmpty() == false)
         {
-            String comment = userName + " says:  " + cBox.getText().toString();
+            String comment = userFN + " says:  " + cBox.getText().toString();
             Intent intent = new Intent();
             intent.putExtra("comment", comment);
             setResult(1, intent);
