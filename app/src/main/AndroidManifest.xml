@@ -29,6 +29,9 @@
             android:name=".NewUser"
             android:label="Pupper" />
         <activity
+            android:name=".AddComment"
+            android:label="Pupper" />
+        <activity
             android:name=".SwipeThrough"
             android:label="Pupper" />
         <activity
@@ -53,6 +56,9 @@
             android:enabled="true" />
 
         <activity android:name=".DogProfile"></activity>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
