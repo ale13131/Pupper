@@ -48,6 +48,7 @@ import java.util.List;
 
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
+import pupper115.pupper.dbmapper.tables.TblUser;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
@@ -112,7 +113,7 @@ public class CreateDogProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_dog_profile);
 
-        EditText focus = (EditText) findViewById(R.id.name);
+        EditText focus = findViewById(R.id.editTextDogName);
         focus.requestFocus();
 
         Intent data = getIntent();
@@ -200,10 +201,10 @@ public class CreateDogProfile extends AppCompatActivity {
 
     public void checkResponse(View v)
     {
-        name = (EditText) findViewById(R.id.name);
-        age = (EditText) findViewById(R.id.age);
-        bio = (EditText) findViewById(R.id.bio);
-        isAvailable = (CheckBox) findViewById(R.id.checkBox);
+        name = findViewById(R.id.editTextDogName);
+        age = findViewById(R.id.editTextDogAge);
+        bio = findViewById(R.id.editTextDogBio);
+        isAvailable = findViewById(R.id.checkBox);
 
         dogName = name.getText().toString();
         dogAge = age.getText().toString();

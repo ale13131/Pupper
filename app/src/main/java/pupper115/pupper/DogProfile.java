@@ -92,7 +92,7 @@ public class DogProfile extends AppCompatActivity {
     }
 
     private void setImage( String imageName){
-        ImageView img = (ImageView) findViewById(R.id.imageView);
+        ImageView img = findViewById(R.id.imageViewDogPhoto);
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + imageName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
     }
@@ -177,7 +177,7 @@ public class DogProfile extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.textViewDogName);
         TextView info = (TextView) findViewById(R.id.textViewDogInfo);
 
-        Button likes = (Button) findViewById(R.id.like);
+        Button likes = (Button) findViewById(R.id.btnDogProfileLike);
         Double num = dog.getLikes();
         String likedBy = dog.getLikedBy();
         likes.setText(String.valueOf(num.intValue()));
@@ -193,7 +193,7 @@ public class DogProfile extends AppCompatActivity {
 
     public void likeDog(View v)
     {
-        Button likes = (Button) findViewById(R.id.like);
+        Button likes = (Button) findViewById(R.id.btnDogProfileLike);
         Double num = dog.getLikes();
         dog.likeDog();
         ++num;
