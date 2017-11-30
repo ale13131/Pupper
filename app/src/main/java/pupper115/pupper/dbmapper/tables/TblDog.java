@@ -111,6 +111,6 @@ public class TblDog {
     }
 
     public void setComments(final String _comments) {
-        this._comments = this._comments + "\r" + _comments ;
+        this._comments = this._comments + _comments ;
     }
 }

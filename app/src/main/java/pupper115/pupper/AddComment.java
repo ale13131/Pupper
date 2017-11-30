@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,7 +15,6 @@ import android.widget.Toast;
 
 public class AddComment extends AppCompatActivity
 {
-    private String comment = "";
     Context context;
     String userName = "";
 
@@ -31,11 +31,11 @@ public class AddComment extends AppCompatActivity
     public void check(View v)
     {
         EditText cBox = (EditText) findViewById(R.id.comment);
-        comment = cBox.getText().toString();
+        Log.d("HERE", cBox.getText().toString());
 
-        if(comment.isEmpty() == false)
+        if(cBox.getText().toString().isEmpty() == false)
         {
-            comment = userName + " says:  " + comment;
+            String comment = userName + " says:  " + cBox.getText().toString();
             Intent intent = new Intent();
             intent.putExtra("comment", comment);
             setResult(1, intent);

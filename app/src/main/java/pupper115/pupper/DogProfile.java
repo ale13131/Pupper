@@ -89,11 +89,15 @@ public class DogProfile extends AppCompatActivity {
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
 
-        String comments = dog.getComments();
-        if(comments != "null")
+        String comments = dog.getComments().replaceAll("null", "");
+        if(comments.contains("null"))
         {
-            bio = bio + "\n -------Comments------- \n";
-            comments.replace("null", "");
+            comments.replaceAll("\0", "");
+            Log.d("HERE", comments);
+        }
+        if(comments.contains("null") == false)
+        {
+            bio = bio + "\n ------------Comments------------";
             bio = bio + comments;
         }
 
@@ -134,7 +138,7 @@ public class DogProfile extends AppCompatActivity {
             case 1:
                 String comment = data.getStringExtra("comment");
                 if(comment != null) {
-                    dog.setComments(comment);
+                    dog.setComments("\n" + comment);
                     bio = bio + " \n" + comment;
                 }
                 mAuthTask = new DogRegisterTask(true, dog);
