@@ -26,7 +26,7 @@ public class DogProfile extends AppCompatActivity {
     }
 
     private void setImage( String imageName){
-        ImageView img = (ImageView) findViewById(R.id.imageView);
+        ImageView img = findViewById(R.id.imageViewDogPhoto);
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + imageName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
     }

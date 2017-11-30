@@ -13,6 +13,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,15 +22,21 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +47,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pupper115.pupper.dbmapper.repos.DogMapperRepo;
+import pupper115.pupper.dbmapper.tables.TblDog;
+import pupper115.pupper.dbmapper.tables.TblUser;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
@@ -91,7 +101,7 @@ public class CreateDogProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_dog_profile);
 
-        EditText focus = (EditText) findViewById(R.id.name);
+        EditText focus = findViewById(R.id.editTextDogName);
         focus.requestFocus();
 
         Intent data = getIntent();
@@ -175,9 +185,9 @@ public class CreateDogProfile extends AppCompatActivity {
 
     public void checkResponse(View v)
     {
-        name = (EditText) findViewById(R.id.name);
-        age = (EditText) findViewById(R.id.age);
-        bio = (EditText) findViewById(R.id.bio);
+        name = findViewById(R.id.editTextDogName);
+        age = findViewById(R.id.editTextDogAge);
+        bio = findViewById(R.id.editTextDogBio);
 
         dogName = name.getText().toString();
         dogAge = age.getText().toString();

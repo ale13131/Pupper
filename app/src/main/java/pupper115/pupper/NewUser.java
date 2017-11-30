@@ -46,27 +46,27 @@ public class NewUser extends AppCompatActivity {
                 .build();
         userMapRepo = new UserMapperRepo(dynamoDBClient);
 
-        EditText focus = (EditText) findViewById(R.id.first);
+        EditText focus = findViewById(R.id.editTextFirstName);
         focus.requestFocus();
     }
 
     public void registerUser(View v) {
         Intent data = getIntent();
         String userName = "";
-        String password = "";
+        String password;
         if (data != null)
             userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
 
-        EditText first = (EditText) findViewById(R.id.first);
-        EditText last = (EditText) findViewById(R.id.last);
-        EditText eMail = (EditText) findViewById(R.id.eMail);
+        EditText first = findViewById(R.id.editTextFirstName);
+        EditText last = findViewById(R.id.editTextLastName);
+        EditText eMail = findViewById(R.id.editTextEmail);
 
         String fName = first.getText().toString();
         String lName = last.getText().toString();
         String email = eMail.getText().toString();
 
-        CheckBox checked = (CheckBox) findViewById(R.id.checkBox);
+        CheckBox checked = findViewById(R.id.checkBox);
         Boolean isAdopting = checked.isChecked();
 
         if (fName.isEmpty() || lName.isEmpty() || email.isEmpty()) {
