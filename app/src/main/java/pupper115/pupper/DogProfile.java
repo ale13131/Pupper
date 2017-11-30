@@ -2,6 +2,7 @@ package pupper115.pupper;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,9 @@ public class DogProfile extends AppCompatActivity {
     TblDog dog;
     private dogTaskPull mPullTask = null;
     String dogImage = "";
+    String bio = "";
+    String userName = "";
+    private DogRegisterTask mAuthTask = null;
 
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
@@ -40,6 +44,7 @@ public class DogProfile extends AppCompatActivity {
         setContentView(R.layout.activity_dog_profile);
         Bundle extras = getIntent().getExtras();
         dogImage = extras.getString("dogImage");
+        userName = extras.getString("userName");
 
         context = getApplication();
         AWSConfiguration awsConfig = null;
@@ -71,7 +76,7 @@ public class DogProfile extends AppCompatActivity {
     private void setData(String image)
     {
         Log.d("Image", image);
-        String bio = "The current owner of ";
+        bio = "The current owner of ";
         bio = bio + dog.getDogName() + " is " + dog.getOwnerId() + ". ";
         bio = bio + dog.getDogName() + " is currently ";
         //Pull from dog table if the dog is up for adoption
@@ -80,9 +85,17 @@ public class DogProfile extends AppCompatActivity {
         else
             bio = bio + "not up to be adopted. Sorry";
 
-        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ": \n";
+        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ": \r\n";
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
+
+        String comments = dog.getComments();
+        if(comments != "null")
+        {
+            bio = bio + "\n -------Comments------- \n";
+            comments.replace("null", "");
+            bio = bio + comments;
+        }
 
         TextView name = (TextView) findViewById(R.id.textViewDogName);
         TextView info = (TextView) findViewById(R.id.textViewDogInfo);
@@ -103,6 +116,34 @@ public class DogProfile extends AppCompatActivity {
         ++num;
         likes.setText("Likes: " + num.intValue());
         likes.setClickable(false);
+    }
+
+    public void addComment(View v)
+    {
+        //Create an activity to write a comment
+        Intent intent = new Intent(context, AddComment.class);
+        intent.putExtra("userName", userName);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode)
+        {
+            case 1:
+                String comment = data.getStringExtra("comment");
+                if(comment != null) {
+                    dog.setComments(comment);
+                    bio = bio + " \n" + comment;
+                }
+                mAuthTask = new DogRegisterTask(true, dog);
+                mAuthTask.execute((Void) null);
+
+                TextView info = (TextView) findViewById(R.id.textViewDogInfo);
+                info.setText(bio);
+                break;
+        }
     }
 
     private class dogTaskPull extends AsyncTask<Void, Void, Boolean> {
@@ -137,6 +178,45 @@ public class DogProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             pDialog.dismiss();
+        }
+    }
+
+    public class DogRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Boolean isRight = false;
+        private TblDog dog = null;
+
+        DogRegisterTask(Boolean isAllowed, TblDog t) {
+            isRight = isAllowed;
+            dog = t;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            if(isRight) {
+                dynamoDBMapper.save(dog);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
         }
     }
 

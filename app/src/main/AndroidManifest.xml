@@ -29,6 +29,9 @@
             android:name=".NewUser"
             android:label="Pupper" />
         <activity
+            android:name=".AddComment"
+            android:label="Pupper" />
+        <activity
             android:name=".SwipeThrough"
             android:label="Pupper" />
         <activity
