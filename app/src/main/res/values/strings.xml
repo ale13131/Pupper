@@ -7,7 +7,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This username is not allowed, only A-Z and 0-9</string>
+    <string name="error_invalid_email">This username is not allowed, only A(-,$8211;)Z and 0(-,$8211;)9</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -20,7 +20,7 @@
     <string name="title_dashboard">Create new dog!</string>
     <string name="title_notifications">Settings</string>
 
-    <string name="pref_description_social_recommendations">Descript Social Recommendations</string>
+    <string name="pref_description_social_recommendations">Describe Social Recommendations</string>
     <string name="pref_title_social_recommendations">Title Social Rec</string>
     <string name="pref_default_display_name">Pupper</string>
     <string name="pref_title_display_name">Huh</string>
@@ -30,4 +30,37 @@
     <string name="title_activity_setting">SettingActivity</string>
     <string name="defaultDogName">Doggo</string>
     <string name="defaultDogInfo">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+
+    <!-- Strings related to profile settings editing -->
+    <string name="activity_title_user_setting">Edit User Profile</string>
+    <string name="prompt_first_name">First Name</string>
+    <string name="prompt_last_name">Last Name</string>
+    <string name="prompt_email_address">Email</string>
+    <string name="input_email">Email Address</string>
+    <string name="prompt_current_password">Current Password</string>
+    <string name="prompt_new_password">New Password</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="prompt_is_adopting">Are You Adopting?</string>
+    <string name="prompt_confirm_settings">Confirm Settings</string>
+
+    <!-- Strings related to dog profile creation -->
+    <string name="activity_title_dog_profile_create">Create Dog Profile</string>
+    <string name="activity_description_dog_profile_create">Please fill out the following to register a new dog!</string>
+    <string name="prompt_name_dog">Dog Name</string>
+    <string name="prompt_dog_age">Dog age</string>
+    <string name="prompt_dog_age_warning">Dog age, no dog years</string>
+    <string name="prompt_dog_bio">Dog Bio</string>
+    <string name="prompt_dog_bio_description">Write a short bio for the dog</string>
+    <string name="prompt_is_for_adoption">Is he/she up for adoption?</string>
+    <string name="prompt_confirm_dog_profile">SELECT PICTURES AND CONTINUE</string>
+
+    <!-- Strings related to new user creation -->
+    <string name="activity_title_new_user_create">Welcome New Pupperer!</string>
+    <string name="activity_description_new_user_create">Welcome new user! Please fill out the following to create a new account for pupper.</string>
+    <string name="prompt_new_user_first_name">First Name</string>
+    <string name="prompt_new_user_last_name">Last Name</string>
+    <string name="prompt_new_user_email">Email</string>
+    <string name="prompt_confirm_new_user_register">Register!</string>
+    <string name="prompt_new_user_is_adopting">Looking to adopt?</string>
 </resources>
+
