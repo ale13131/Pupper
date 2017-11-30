@@ -8,60 +8,6 @@
     android:orientation="vertical"
     tools:context="pupper115.pupper.DogProfile">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="330dp">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="250sp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textViewDogName"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/doggo2" />
-
-        <TextView
-            android:id="@+id/textViewDogName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/defaultDogName"
-            android:textSize="40sp" />
-
-        <Button
-            android:id="@+id/like"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/like_button_selector"
-            android:onClick="likeDog"
-            android:text="0"
-            android:textAlignment="center"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/comment"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_above="@+id/textView3"
-            android:layout_alignParentEnd="true"
-            android:layout_alignWithParentIfMissing="false"
-            android:background="@drawable/ic_comment_black_24dp"
-            android:onClick="addComment" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:text="Add a comment" />
-    </RelativeLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -119,7 +65,7 @@
                 android:layout_height="45dp"
                 android:layout_above="@+id/textView3"
                 android:layout_alignParentStart="true"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/like_button_selector"
                 android:onClick="likeDog"
                 android:text="0"
                 android:textAlignment="center"
