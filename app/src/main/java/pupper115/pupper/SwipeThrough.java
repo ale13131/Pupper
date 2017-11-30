@@ -34,7 +34,7 @@ import pupper115.pupper.s3bucket.Util;
 
 /**
  * This page was first created by Sri, then the picture viewing and buttons for viewing next dog,
- * more info and the code behind both were added by Josh.
+ * more info and the code behind both were added by Josh. This page was reviewed by Joseph.
  *
  * This is where the user is able to view the dogs, more info, add a dog, and go to settings. Very
  * straightforward. If the user press back, a message is displayed making sure the user meant to do
@@ -53,8 +53,10 @@ public class SwipeThrough extends AppCompatActivity {
     private TransferUtility transferUtility;
     private String userName = "";
     private String password = "";
-    private int counter = 0;
+    //private int counter = 0;
+    private boolean isNotPlaceholderDog = false;
     private String lastPicture = "init";
+    private String penultimatePicture = "init";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,25 +67,14 @@ public class SwipeThrough extends AppCompatActivity {
                 case R.id.navigation_home:
                     //Should be the main page
                     break;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_createDog:
                     //Should be the upload page
-
-                    Intent intent = new Intent(context, CreateDogProfile.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.putExtra("userName", userName);
-                    intent.putExtra("password", password);
-
-                    startActivity(intent);
+                    transitionToNavActivity(CreateDogProfile.class);
 
                     break;
-                case R.id.navigation_notifications:
+                case R.id.navigation_settings:
                     //Should be the settings page
-                    Intent intent2 = new Intent(context, SettingsActivity.class)
-                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent2.putExtra("userName", userName);
-                    intent2.putExtra("password", password);
-
-                    startActivity(intent2);
+                    transitionToNavActivity(SettingsActivity.class);
 
                     break;
             }
@@ -91,6 +82,15 @@ public class SwipeThrough extends AppCompatActivity {
         }
 
     };
+
+    private void transitionToNavActivity(Class targetActivity){
+        Intent intent = new Intent(context, targetActivity)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("userName", userName);
+        intent.putExtra("password", password);
+
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,18 +110,14 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
     //ADDED by Josh until bottom
-    public void getMoreInfo(View v)
-    {
-        if(counter > 0) {
+    public void getMoreInfo(View v){
+        if(isNotPlaceholderDog) {
             Intent intent = new Intent(context, DogProfile.class);
-
             intent.putExtra("dogImage", lastPicture);
             intent.putExtra("userName", userName);
             startActivity(intent);
         }
-        else
-        {
-            Context context = getApplicationContext();
+        else{
             CharSequence text = "This is the placeholder dog!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
@@ -130,12 +126,12 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
     public void getNextDog(View v) {
-        Context context = getApplicationContext();
-        CharSequence text = "Loading the good doggo...";
+        //Context context = getApplicationContext();
+        /*CharSequence text = "Loading the good doggo...";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        toast.show();*/
 
         ImageView img = (ImageView) findViewById(R.id.doggo1);
 
@@ -144,32 +140,30 @@ public class SwipeThrough extends AppCompatActivity {
 
         Random rand = new Random();
 
-        int n = rand.nextInt(range);
+        int randomIndex = rand.nextInt(range);
 
-        Object nextPicture = array[n];
+        Object nextPicture = array[randomIndex];
 
         String pictureName = nextPicture.toString();
         pictureName = pictureName.substring(5, pictureName.length() - 1);
 
-        while(lastPicture.equals(pictureName))
+        while(lastPicture.equals(pictureName) || penultimatePicture.equals(pictureName))
         {
-            if(n == 0)
-                ++n;
-            else if(n == (1 - range))
-                --n;
-            else
-                ++n;
-            nextPicture = array[n];
+            randomIndex++;
+            randomIndex = randomIndex % range;
+            nextPicture = array[randomIndex];
 
             pictureName = nextPicture.toString();
             pictureName = pictureName.substring(5, pictureName.length() - 1);
         }
+        penultimatePicture = lastPicture;
         lastPicture = pictureName;
 
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
 
-        ++counter;
+        //++counter;
+        isNotPlaceholderDog = true;
     }
 
     private void initData() {
