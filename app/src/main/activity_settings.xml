@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    tools:context="pupper115.pupper.SettingsActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E3DEDE">
+
+    <TextView
+        android:id="@+id/textViewEditUserProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/adamina"
+        android:gravity="center"
+        android:text="@string/activity_title_user_setting"
+        android:textColor="@android:color/black"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_marginVertical="4dp"
+        android:layout_height="2dp"
+        android:background="#747474"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+
+                <TextView
+                    android:id="@+id/textViewFirstName"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_first_name"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/userFN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewFirstName"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/prompt_first_name"
+                    android:inputType="textPersonName"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:id="@+id/textViewLastName"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_last_name"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/userLN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewLastName"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/prompt_last_name"
+                    android:inputType="textPersonName"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:id="@+id/textViewEMail"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_email_address"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/userEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewEMail"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/input_email"
+                    android:inputType="textEmailAddress"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_marginVertical="4dp"
+                android:layout_height="2dp"
+                android:background="#747474"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+
+                <TextView
+                    android:id="@+id/textViewChangePassword"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_new_password"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/changePassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewChangePassword"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/prompt_new_password"
+                    android:inputType="textPassword"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp">
+
+                <TextView
+                    android:id="@+id/textViewConfirmPassword"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_confirm_password"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/confirmPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewConfirmPassword"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/prompt_confirm_password"
+                    android:inputType="textPassword"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_marginVertical="4dp"
+                android:layout_height="2dp"
+                android:background="#747474"/>
+
+            <CheckBox
+                android:id="@+id/adoptingFlag"
+                android:layout_width="260dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="6dp"
+                android:checked="false"
+                android:text="@string/prompt_is_adopting" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="47dp"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/textViewCurrentPassword"
+                    android:layout_width="110dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="1dp"
+                    android:text="@string/prompt_current_password"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/currentPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@id/textViewCurrentPassword"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="10dp"
+                    android:ems="10"
+                    android:hint="@string/prompt_current_password"
+                    android:inputType="textPassword"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/confirmButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:onClick="trySaveUserSettings"
+                android:text="@string/prompt_confirm_settings" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
