@@ -29,6 +29,17 @@ import java.util.StringTokenizer;
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
 
+/**
+ * Created by Joseph
+ * The original layout and info displayed was created by Joseph. Josh then took the base and added
+ * the info pulled from the server and the like and comment functionality. This page displays more
+ * information on the dog, number of likes, any comments as well as being able to do the two latter.
+ * If you click on like, it will like the dog, increment the number of likes and save you as a liker
+ * of the dog so you don't click it a ton to up the likes. When you click add comment, it takes you
+ * the add comment page and you then add the comment which is displayed on the page when finished.
+ * To exit this page, the user simply press on their back arrow
+ */
+
 public class DogProfile extends AppCompatActivity {
     private Context context;
     DynamoDBMapper dynamoDBMapper;
@@ -159,7 +170,10 @@ public class DogProfile extends AppCompatActivity {
 
         Button likes = (Button) findViewById(R.id.like);
         Double num = dog.getLikes();
+        String likedBy = dog.getLikedBy();
         likes.setText("Likes: " + num.intValue());
+        if(likedBy.contains(userName))
+            likes.setClickable(false);
 
         name.setText(dog.getDogName());
         info.setText(bio);
@@ -173,6 +187,9 @@ public class DogProfile extends AppCompatActivity {
         ++num;
         likes.setText("Likes: " + num.intValue());
         likes.setClickable(false);
+        dog.setLikedBy(userName);
+        mAuthTask = new DogRegisterTask(true, dog);
+        mAuthTask.execute((Void) null);
     }
 
     public void addComment(View v)
@@ -186,20 +203,21 @@ public class DogProfile extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        switch (requestCode)
-        {
-            case 1:
-                String comment = data.getStringExtra("comment");
-                if(comment != null) {
-                    dog.setComments("\n" + comment);
-                    bio = bio + " \n" + comment;
-                }
-                mAuthTask = new DogRegisterTask(true, dog);
-                mAuthTask.execute((Void) null);
+        if(data != null) {
+            switch (requestCode) {
+                case 1:
+                    String comment = data.getStringExtra("comment");
+                    if (comment != null) {
+                        dog.setComments("\n" + comment);
+                        bio = bio + " \n" + comment;
+                    }
+                    mAuthTask = new DogRegisterTask(true, dog);
+                    mAuthTask.execute((Void) null);
 
-                TextView info = (TextView) findViewById(R.id.textViewDogInfo);
-                info.setText(bio);
-                break;
+                    TextView info = (TextView) findViewById(R.id.textViewDogInfo);
+                    info.setText(bio);
+                    break;
+            }
         }
     }
 

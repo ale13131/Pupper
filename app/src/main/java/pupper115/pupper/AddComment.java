@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 /**
  * Created by Josh on 11/29/2017.
+ * This activity is for adding a comment to the dog profile and then returning to the dog profile
+ * To leave, the user just needs to press the back arrow. If the user tries to enter a blank comment,
+ * the app will display an error message and stay on the page
  */
 
 public class AddComment extends AppCompatActivity

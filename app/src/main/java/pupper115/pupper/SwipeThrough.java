@@ -1,7 +1,9 @@
 package pupper115.pupper;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
@@ -31,9 +32,17 @@ import java.util.Random;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
+/**
+ * This page was first created by Sri, then the picture viewing and buttons for viewing next dog,
+ * more info and the code behind both were added by Josh.
+ *
+ * This is where the user is able to view the dogs, more info, add a dog, and go to settings. Very
+ * straightforward. If the user press back, a message is displayed making sure the user meant to do
+ * that.
+ */
+
 public class SwipeThrough extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private Context context;
 
     //Added by Josh for use in the dog displaying
@@ -68,7 +77,7 @@ public class SwipeThrough extends AppCompatActivity {
 
                     break;
                 case R.id.navigation_notifications:
-                    //Sould be the settings page
+                    //Should be the settings page
                     Intent intent2 = new Intent(context, SettingsActivity.class)
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent2.putExtra("userName", userName);
@@ -104,7 +113,6 @@ public class SwipeThrough extends AppCompatActivity {
     public void getMoreInfo(View v)
     {
         if(counter > 0) {
-            ImageView img = (ImageView) findViewById(R.id.doggo1);
             Intent intent = new Intent(context, DogProfile.class);
 
             intent.putExtra("dogImage", lastPicture);
@@ -208,7 +216,6 @@ public class SwipeThrough extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             dialog.dismiss();
-            //simpleAdapter.notifyDataSetChanged();
         }
     }
 
@@ -229,5 +236,22 @@ public class SwipeThrough extends AppCompatActivity {
         public void onStateChanged(int id, TransferState state) {
             Log.d("DownloadListener", "onStateChanged: " + id + ", " + state);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Leaving Pupper!")
+                .setMessage("Are you sure you want to leave these dogs?!?!?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

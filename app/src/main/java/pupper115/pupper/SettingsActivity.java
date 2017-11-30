@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +11,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,8 +26,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import pupper115.pupper.dbmapper.repos.UserMapperRepo;
-import pupper115.pupper.dbmapper.tables.TblDog;
 import pupper115.pupper.dbmapper.tables.TblUser;
+
+/**
+ * This was created by Aaron
+ *
+ * This is the user settings page. The user is able to change their email, first name, last name,
+ * and password here. They must confirm their current password before changing anything. To exit
+ * this page, the user presses their back arrow
+ */
 
 public class SettingsActivity extends AppCompatActivity {
     // Amazon DB Client Object
@@ -277,8 +282,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
-
     private class settingsTaskPull extends AsyncTask<Void, Void, Boolean> {
         private ProgressDialog pDialog;
 
@@ -310,7 +313,5 @@ public class SettingsActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             pDialog.dismiss();
         }
-
-
     }
 }

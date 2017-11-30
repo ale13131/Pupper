@@ -15,12 +15,13 @@ package pupper115.pupper.s3bucket;
  * permissions and limitations under the License.
  */
 
+/**
+ * Taken from the AWS GitHub for use in accessing the S3 bucket where our dog pictures are stored
+ * on our server. These are for use for that bucket only
+ */
+
 public class Constants {
 
-    /*
-     * You should replace these values with your own. See the README for details
-     * on what to fill in.
-     */
     public static final String COGNITO_POOL_ID = "us-east-1:800256ad-1679-4750-b2c5-15921ecb246b";
 
     /*

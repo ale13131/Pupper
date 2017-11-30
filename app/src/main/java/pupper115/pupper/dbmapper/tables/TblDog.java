@@ -2,10 +2,13 @@ package pupper115.pupper.dbmapper.tables;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
+
+/**
+ * This is the access functions for the dog table. We have extra functions for the next iteration
+ * of the app already programmed in, we just need to use them for future updates
+ */
 
 @DynamoDBTable(tableName = "pupper-mobilehub-909033989-tbl_Dog")
 
@@ -21,6 +24,7 @@ public class TblDog {
     private Boolean _isOwned;
     private Double _numOfLikes;
     private String _comments;
+    private String _likedBy;
 
     @DynamoDBHashKey(attributeName = "userId")
     @DynamoDBAttribute(attributeName = "userId")
@@ -112,5 +116,14 @@ public class TblDog {
 
     public void setComments(final String _comments) {
         this._comments = this._comments + _comments ;
+    }
+
+    @DynamoDBAttribute(attributeName = "likedBy")
+    public String getLikedBy() {
+        return _likedBy;
+    }
+
+    public void setLikedBy(final String _userName) {
+        this._likedBy = this._likedBy + " " + _userName ;
     }
 }
