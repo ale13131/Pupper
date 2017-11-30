@@ -54,7 +54,9 @@ public class DogProfile extends AppCompatActivity {
     String userName = "";
     private DogRegisterTask mAuthTask = null;
 
+
     TblUser user;
+    TblUser owner;
     UserMapperRepo userMapRepo;
 
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
@@ -148,15 +150,15 @@ public class DogProfile extends AppCompatActivity {
     {
         Log.d("Image", image);
         bio = "The current owner of ";
-        bio = bio + dog.getDogName() + " is " + user.getUserFN() + ". \r\n" ;
+        bio = bio + dog.getDogName() + " is " + owner.getUserFN() + ". \r\n" ;
         bio = bio + dog.getDogName() + " is currently ";
         //Pull from dog table if the dog is up for adoption
         if(dog.getIsOwned() == false)
-            bio = bio + "up for adoption! Contact " + user.getUserFN() + " for details";
+            bio = bio + "up for adoption! Contact " + owner.getUserFN() + " for details";
         else
             bio = bio + "not up to be adopted. Sorry";
 
-        bio = bio + ".\r\nHere is a quick bio of " + dog.getDogName() + " from " + user.getUserFN() + ": \n";
+        bio = bio + ".\r\nHere is a quick bio of " + dog.getDogName() + " from " + owner.getUserFN() + ": \n";
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
 
@@ -251,9 +253,11 @@ public class DogProfile extends AppCompatActivity {
             StringTokenizer tokens = new StringTokenizer(dogImage, ".");
             String first = tokens.nextToken(); //Dog owner ID
             Log.d("ID:", dogImage + "     " + first);
+            Log.d("currentUserID:","    " + userName);
 
             dog = dogMapRepo.getDog(dogImage, first);
-            user = userMapRepo.getUser(first);
+            owner = userMapRepo.getUser(first);
+            user = userMapRepo.getUser(userName);
 
             if (dog != null){
                 Log.d("Results", "WORKED!!!!");
