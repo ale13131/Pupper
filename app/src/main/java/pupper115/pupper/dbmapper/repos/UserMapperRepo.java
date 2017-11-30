@@ -2,6 +2,8 @@ package pupper115.pupper.dbmapper.repos;
 
 /**
  * Created by aaron on 11/1/2017.
+ *
+ * This is what stores and loads from our user database.
  */
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;

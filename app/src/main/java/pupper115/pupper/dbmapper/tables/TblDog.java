@@ -2,14 +2,13 @@ package pupper115.pupper.dbmapper.tables;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+/**
+ * This is the access functions for the dog table. We have extra functions for the next iteration
+ * of the app already programmed in, we just need to use them for future updates
+ */
 
 @DynamoDBTable(tableName = "pupper-mobilehub-909033989-tbl_Dog")
 
@@ -23,6 +22,9 @@ public class TblDog {
     private String _dogLocation;
     private String _dogName;
     private Boolean _isOwned;
+    private Double _numOfLikes;
+    private String _comments;
+    private String _likedBy;
 
     @DynamoDBHashKey(attributeName = "userId")
     @DynamoDBAttribute(attributeName = "userId")
@@ -99,4 +101,29 @@ public class TblDog {
         this._isOwned = _isOwned;
     }
 
+    @DynamoDBAttribute(attributeName = "numOfLikes")
+    public Double getLikes() {
+        return _numOfLikes;
+    }
+
+    public void likeDog() { ++this._numOfLikes; }
+    public void setLikes(final Double _numOfLikes) { this._numOfLikes = _numOfLikes; }
+
+    @DynamoDBAttribute(attributeName = "comments")
+    public String getComments() {
+        return _comments;
+    }
+
+    public void setComments(final String _comments) {
+        this._comments = this._comments + _comments ;
+    }
+
+    @DynamoDBAttribute(attributeName = "likedBy")
+    public String getLikedBy() {
+        return _likedBy;
+    }
+
+    public void setLikedBy(final String _userName) {
+        this._likedBy = this._likedBy + " " + _userName ;
+    }
 }

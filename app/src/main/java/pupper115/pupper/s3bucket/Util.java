@@ -34,6 +34,10 @@ import java.util.UUID;
 /*
  * Handles basic helper functions used throughout the app.
  */
+
+/**
+ * Again, taken from the AWS GitHub for use to access our S3 bucket
+ */
 public class Util {
 
     // We only need one instance of the clients and credentials provider

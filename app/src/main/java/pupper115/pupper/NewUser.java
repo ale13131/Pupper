@@ -15,8 +15,6 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapperConfig;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 
@@ -25,6 +23,9 @@ import pupper115.pupper.dbmapper.tables.TblUser;
 
 /**
  * Created by Josh on 10/26/2017.
+ * This page is where the user enters their information and attempts to register. If there is an
+ * empty field, the user cannot register until they fill it out. To exit this page, the user simply
+ * presses their back arrow and they are returned to the login page
  */
 
 public class NewUser extends AppCompatActivity {
@@ -95,8 +96,6 @@ public class NewUser extends AppCompatActivity {
             newUser.setUserEmail(email);
             newUser.setIsAdopting(isAdopting);
 
-            //DynamoDBMapperConfig dynamoDBMapperConfig = new DynamoDBMapperConfig(DynamoDBMapperConfig.SaveBehavior.CLOBBER);
-            //dynamoDBMapper.save(newUser, dynamoDBMapperConfig);
             mAuthTask = new NewUser.UserRegisterTask(true, newUser);
             mAuthTask.execute((Void) null);
         }

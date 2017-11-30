@@ -3,7 +3,8 @@ package pupper115.pupper;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
@@ -35,10 +36,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 //Login
-import com.amazonaws.mobile.auth.core.IdentityProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobile.auth.core.IdentityManager;
-import com.amazonaws.mobile.auth.userpools.CognitoUserPoolsSignInProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +46,7 @@ import java.util.regex.Pattern;
 
 // Import the following for DB API calls
 import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import static com.amazonaws.auth.policy.actions.DynamoDBv2Actions.Query;
-import com.amazonaws.mobile.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import pupper115.pupper.dbmapper.repos.UserMapperRepo;
@@ -60,12 +56,20 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
+ * Aaron first implemented this into the app, then Aaron and Josh both altered it to fit the needs
+ * of the app. There is an issue where we had the user enter email instead of username first, so
+ * in the code, where it says email, it instead means username
+ * This is very straight forward, the user enters login info and the app checks the database to see
+ * if the user exists. If it does and the password is correct, the user is brought to the main
+ * screen. If the password is incorrect, that will display an error message. If the password does
+ * not meet the minimum requirements for a password, it will display an error message. If the user
+ * does not exist, and the password meets the requirement, it will bring them to the register page
+ * where they enter their information.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
     // Amazon DB Client Object
     DynamoDBMapper dynamoDBMapper;
     UserMapperRepo userMapRepo;
-    String userId = "";
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -88,11 +92,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // DynamoDBClient Stuff - Aaron 10/20
-        Context appContext = getApplicationContext();
 
-        final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
-        // FIX BELOW
-        // onuserId = IdentityManager.getCachedUserID();
+        final AWSCredentialsProvider credentialsProvider =
+                IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+
         AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
         AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -233,6 +236,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean b = m.find();
 
         if(email.isEmpty())
+            return false;
+        else if(email.contains("."))
             return false;
         else if(b)
             return false;
@@ -421,6 +426,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Leaving Pupper!")
+                .setMessage("Are you sure you want to leave these dogs?!?!?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }
 

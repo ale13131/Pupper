@@ -2,14 +2,14 @@ package pupper115.pupper.dbmapper.tables;
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBAttribute;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexHashKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRangeKey;
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+/**
+ * This is the access functions for the user table. We have extra functions for the next iteration
+ * of the app already programmed in, we just need to use them for future updates
+ */
 
 @DynamoDBTable(tableName = "pupper-mobilehub-909033989-tbl_User")
 

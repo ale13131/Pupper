@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pupper115.pupper.NewUser"
+    tools:context="pupper115.pupper.DogProfile"
     android:background="#E3DEDE">
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -61,24 +60,29 @@
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/btnDogProfileLike"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_above="@+id/textView3"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/button_selector"
+                android:onClick="likeDog"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnDogProfileComment"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_above="@+id/textView3"
+                android:layout_alignParentEnd="true"
+                android:layout_alignWithParentIfMissing="false"
+                android:background="@drawable/ic_comment_black_24dp"
+                android:onClick="addComment" />
 
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </LinearLayout>

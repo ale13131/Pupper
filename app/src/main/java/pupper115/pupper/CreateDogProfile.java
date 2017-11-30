@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -54,20 +53,36 @@ import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
 /**
+ * Created by Josh
  * This file was altered from the amazon aws github for uploading to the S3 buckets
- * It took a lot to get it working to this point
+ * It took a lot to get it working to this point due to AWS changing their code multiple
+ * times on me. This page takes in the relevant information from the user about their dog
+ * and has them select a picture once ALL of the fields are filled. It then prompts the user
+ * to select the picture from their gallery then it completes the activity and returns to the
+ * dog viewing screen. The compress image functionality was taken from online, this function
+ * was needed because Picasso has a display issue for when the image is over 1 MB, so we make sure
+ * to limit the size put into our server
  */
 public class CreateDogProfile extends AppCompatActivity {
+    DogMapperRepo dogMapRepo;
+    DynamoDBMapper dynamoDBMapper;
+    final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+    AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
+
     private EditText name = null;
     private EditText age = null;
     private EditText bio = null;
+    private CheckBox isAvailable = null;
 
     private String dogName = "";
     private String dogAge = "";
     private String dogBio = "";
+    private boolean canBeAdopted = false;
 
     private String userName = "";
     private String password = "";
+
+    private DogRegisterTask mAuthTask = null;
 
     private static final int REQUEST_WRITE_PERMISSION = 786;
 
@@ -79,9 +94,6 @@ public class CreateDogProfile extends AppCompatActivity {
 
     // The TransferUtility is the primary class for managing transfer to S3
     private TransferUtility transferUtility;
-
-    // The SimpleAdapter adapts the data about transfers to rows in the UI
-    private SimpleAdapter simpleAdapter;
 
     // A List of all transfers
     private List<TransferObserver> observers;
@@ -107,6 +119,13 @@ public class CreateDogProfile extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
+
+        AWSConfiguration awsConfig = null;
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(awsConfig)
+                .build();
+        dogMapRepo = new DogMapperRepo(dynamoDBClient);
 
         // Initializes TransferUtility, always do this before using it.
         transferUtility = Util.getTransferUtility(this);
@@ -159,7 +178,6 @@ public class CreateDogProfile extends AppCompatActivity {
                 observer.setTransferListener(listener);
             }
         }
-        //simpleAdapter.notifyDataSetChanged();
     }
 
     /*
@@ -173,8 +191,6 @@ public class CreateDogProfile extends AppCompatActivity {
             map = transferRecordMaps.get(i);
             Util.fillMap(map, observer, i == checkedIndex);
         }
-        //simpleAdapter.notifyDataSetChanged();
-
     }
 
     private void requestPermission() {
@@ -188,10 +204,12 @@ public class CreateDogProfile extends AppCompatActivity {
         name = findViewById(R.id.editTextDogName);
         age = findViewById(R.id.editTextDogAge);
         bio = findViewById(R.id.editTextDogBio);
+        isAvailable = findViewById(R.id.checkBox);
 
         dogName = name.getText().toString();
         dogAge = age.getText().toString();
         dogBio = bio.getText().toString();
+        canBeAdopted = isAvailable.isChecked();
 
         if(dogName.isEmpty() || dogAge.isEmpty() || dogBio.isEmpty())
         {
@@ -245,17 +263,31 @@ public class CreateDogProfile extends AppCompatActivity {
 
         String compressed = compressImage(filePath);
         File fixedImage = new File(compressed);
+        dogName = dogName.replace(".", " ");
+
+        createDogInTable();
 
         TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME,
                 userName + "." + dogName, fixedImage);
-        /*
-         * Note that usually we set the transfer listener after initializing the
-         * transfer. However it isn't required in this sample app. The flow is
-         * click upload button -> start an activity for image selection
-         * startActivityForResult -> onActivityResult -> beginUpload -> onResume
-         * -> set listeners to in progress transfers.
-         */
-        // observer.setTransferListener(new UploadListener());
+    }
+
+    private void createDogInTable()
+    {
+        TblDog newDog = new TblDog();
+        newDog.setUserId(userName + "." + dogName);
+        newDog.setDogName(dogName);
+        newDog.setDogAge(Double.parseDouble(dogAge));
+        newDog.setOwnerId(userName);
+        newDog.setIsOwned(canBeAdopted);
+        newDog.setDogBio(dogBio);
+        newDog.setLikes(0.0);
+        newDog.setComments(" ");
+        newDog.setLikedBy(" ");
+
+        mAuthTask = new DogRegisterTask(true, newDog);
+        mAuthTask.execute((Void) null);
+
+        return;
     }
 
     /*
@@ -380,22 +412,23 @@ public class CreateDogProfile extends AppCompatActivity {
 
         BitmapFactory.Options options = new BitmapFactory.Options();
 
-//      by setting this field as true, the actual bitmap pixels are not loaded in the memory. Just the bounds are loaded. If
-//      you try the use the bitmap here, you will get null.
+        // By setting this field as true, the actual bitmap pixels are not loaded in the memory.
+        // Just the bounds are loaded. If you try the use the bitmap here, you will get null.
         options.inJustDecodeBounds = true;
         Bitmap bmp = BitmapFactory.decodeFile(filePath, options);
 
         int actualHeight = options.outHeight;
         int actualWidth = options.outWidth;
 
-//      max Height and width values of the compressed image is taken as 816x612
+        // max Height and width values of the compressed image is taken as 1800x1200
+        // This is the max viewing size on an average phone for our app
 
         float maxHeight = 1800;
         float maxWidth = 1200;
         float imgRatio = actualWidth / actualHeight;
         float maxRatio = maxWidth / maxHeight;
 
-//      width and height values are set maintaining the aspect ratio of the image
+        // Width and height values are set maintaining the aspect ratio of the image
 
         if (actualHeight > maxHeight || actualWidth > maxWidth) {
             if (imgRatio < maxRatio) {
@@ -413,20 +446,20 @@ public class CreateDogProfile extends AppCompatActivity {
             }
         }
 
-//      setting inSampleSize value allows to load a scaled down version of the original image
+        // Setting inSampleSize value allows to load a scaled down version of the original image
 
         options.inSampleSize = calculateInSampleSize(options, actualWidth, actualHeight);
 
-//      inJustDecodeBounds set to false to load the actual bitmap
+        // inJustDecodeBounds set to false to load the actual bitmap
         options.inJustDecodeBounds = false;
 
-//      this options allow android to claim the bitmap memory if it runs low on memory
+        // This options allow android to claim the bitmap memory if it runs low on memory
         options.inPurgeable = true;
         options.inInputShareable = true;
         options.inTempStorage = new byte[16 * 1024];
 
         try {
-//          load the bitmap from its path
+            // load the bitmap from its path
             bmp = BitmapFactory.decodeFile(filePath, options);
         } catch (OutOfMemoryError exception) {
             exception.printStackTrace();
@@ -450,7 +483,7 @@ public class CreateDogProfile extends AppCompatActivity {
         canvas.setMatrix(scaleMatrix);
         canvas.drawBitmap(bmp, middleX - bmp.getWidth() / 2, middleY - bmp.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
 
-//      check the rotation of the image and display it properly
+        // Check the rotation of the image and display it properly
         ExifInterface exif;
         try {
             exif = new ExifInterface(filePath);
@@ -481,7 +514,7 @@ public class CreateDogProfile extends AppCompatActivity {
         try {
             out = new FileOutputStream(filename);
 
-//          write the compressed bitmap at the destination specified by filename.
+            // Write the compressed bitmap at the destination specified by filename.
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
 
         } catch (FileNotFoundException e) {
@@ -531,5 +564,44 @@ public class CreateDogProfile extends AppCompatActivity {
         }
 
         return inSampleSize;
+    }
+
+    public class DogRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Boolean isRight = false;
+        private TblDog dog = null;
+
+        DogRegisterTask(Boolean isAllowed, TblDog t) {
+            isRight = isAllowed;
+            dog = t;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            if(isRight) {
+                dynamoDBMapper.save(dog);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
     }
 }

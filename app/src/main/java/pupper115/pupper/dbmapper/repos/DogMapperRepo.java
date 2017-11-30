@@ -2,6 +2,8 @@ package pupper115.pupper.dbmapper.repos;
 
 /**
  * Created by aaron on 11/1/2017.
+ *
+ * This is what stores and loads from our dog database.
  */
 
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
@@ -16,12 +18,12 @@ public class DogMapperRepo {
         dbMapper = new DynamoDBMapper(amazondynamoDB);
     }
 
-    public void insert(TblDog dog){
+    public void save(TblDog dog){
         dbMapper.save(dog);
     }
 
-    public TblDog getDog(String dogname){
-        TblDog dog = dbMapper.load(TblDog.class,dogname);
+    public TblDog getDog(String dogname, String owner){
+        TblDog dog = dbMapper.load(TblDog.class,dogname,owner);
 
         return dog;
     }

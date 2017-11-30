@@ -36,34 +36,42 @@ public class SplashActivity2 extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String userName = data.getStringExtra("userName");
-        String password = data.getStringExtra("password");
-        //Log.d("NewFile", userName);
+        if (data != null) {
+            String userName = data.getStringExtra("userName");
+            String password = data.getStringExtra("password");
 
-        switch(resultCode) {
-            case 2:
-                // User is in the system
-                final Intent intent2 = new Intent(this, SwipeThrough.class)
-	                  .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent2.putExtra("userName", userName);
-                intent2.putExtra("password", password);
+            switch (resultCode) {
+                case 2:
+                    // User is in the system
+                    final Intent intent2 = new Intent(this, SwipeThrough.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent2.putExtra("userName", userName);
+                    intent2.putExtra("password", password);
 
-                this.startActivity(intent2);
-                this.finish();
+                    this.startActivity(intent2);
+                    this.finish();
 
-                break;
+                    break;
 
-            case 1:
-                // New User
-                final Intent intent3 = new Intent(this, NewUser.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                case 1:
+                    // New User
+                    final Intent intent3 = new Intent(this, NewUser.class)
+                            .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                intent3.putExtra("userName", userName);
-                intent3.putExtra("password", password);
+                    intent3.putExtra("userName", userName);
+                    intent3.putExtra("password", password);
 
-                this.startActivityForResult(intent3, 2);
+                    this.startActivityForResult(intent3, 2);
 
-                break;
+                    break;
+            }
+        }
+        else
+        {
+            final Intent login = new Intent(this, LoginActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            this.startActivityForResult(login, 2);
         }
     }
 }
