@@ -172,10 +172,10 @@ public class DogProfile extends AppCompatActivity {
         Button likes = (Button) findViewById(R.id.like);
         Double num = dog.getLikes();
         String likedBy = dog.getLikedBy();
-        likes.setText("Likes: " + num.intValue());
+        likes.setText(String.valueOf(num.intValue()));
         if(likedBy.contains(userName)) {
+            likes.setActivated(true);
             likes.setClickable(false);
-            likes.setBackgroundColor(Color.DKGRAY);
             likes.setTextColor(Color.WHITE);
         }
 
@@ -189,9 +189,9 @@ public class DogProfile extends AppCompatActivity {
         Double num = dog.getLikes();
         dog.likeDog();
         ++num;
-        likes.setText("Likes: " + num.intValue());
+        likes.setText(String.valueOf(num.intValue()));
         likes.setClickable(false);
-        likes.setBackgroundColor(Color.DKGRAY);
+        likes.setActivated(true);
         likes.setTextColor(Color.WHITE);
         dog.setLikedBy(userName);
         mAuthTask = new DogRegisterTask(true, dog);

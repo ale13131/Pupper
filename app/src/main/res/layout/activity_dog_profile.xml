@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pupper115.pupper.DogProfile"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="pupper115.pupper.DogProfile">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -31,21 +31,34 @@
 
         <Button
             android:id="@+id/like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_above="@+id/textView3"
             android:layout_alignParentStart="true"
+            android:background="@drawable/button_selector"
             android:onClick="likeDog"
-            android:text="Likes: 0" />
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/comment"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_above="@+id/textView3"
+            android:layout_alignParentEnd="true"
+            android:layout_alignWithParentIfMissing="false"
+            android:background="@drawable/ic_comment_black_24dp"
+            android:onClick="addComment" />
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:onClick="addComment"
-            android:text="Add comment" />
+            android:text="Add a comment" />
     </RelativeLayout>
 
     <ScrollView
@@ -62,11 +75,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/defaultDogInfo"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
-
 
 
 </LinearLayout>
