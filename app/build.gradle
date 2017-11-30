@@ -22,7 +22,7 @@ android {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java/pupper115.pupper']
             assets.srcDirs = ['src/main/assets', 'src/main/assets/']
-            res.srcDirs = ['src/main/res', 'src/main/res/drawable']
+            res.srcDirs = ['src/main/res', 'src/main/res/drawable', 'src/main/assets/font']
         }
     }
 
