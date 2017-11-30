@@ -38,7 +38,6 @@ public class SplashActivity2 extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String userName = data.getStringExtra("userName");
         String password = data.getStringExtra("password");
-        //Log.d("NewFile", userName);
 
         switch(resultCode) {
             case 2:

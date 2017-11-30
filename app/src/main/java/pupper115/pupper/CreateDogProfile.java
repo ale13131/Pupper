@@ -13,6 +13,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,15 +22,21 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferType;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +47,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pupper115.pupper.dbmapper.repos.DogMapperRepo;
+import pupper115.pupper.dbmapper.tables.TblDog;
+import pupper115.pupper.dbmapper.tables.TblUser;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
@@ -48,16 +58,25 @@ import pupper115.pupper.s3bucket.Util;
  * It took a lot to get it working to this point
  */
 public class CreateDogProfile extends AppCompatActivity {
+    DogMapperRepo dogMapRepo;
+    DynamoDBMapper dynamoDBMapper;
+    final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+    AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
+
     private EditText name = null;
     private EditText age = null;
     private EditText bio = null;
+    private CheckBox isAvailable = null;
 
     private String dogName = "";
     private String dogAge = "";
     private String dogBio = "";
+    private boolean canBeAdopted = false;
 
     private String userName = "";
     private String password = "";
+
+    private DogRegisterTask mAuthTask = null;
 
     private static final int REQUEST_WRITE_PERMISSION = 786;
 
@@ -97,6 +116,13 @@ public class CreateDogProfile extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
+
+        AWSConfiguration awsConfig = null;
+        this.dynamoDBMapper = DynamoDBMapper.builder()
+                .dynamoDBClient(dynamoDBClient)
+                .awsConfiguration(awsConfig)
+                .build();
+        dogMapRepo = new DogMapperRepo(dynamoDBClient);
 
         // Initializes TransferUtility, always do this before using it.
         transferUtility = Util.getTransferUtility(this);
@@ -178,10 +204,12 @@ public class CreateDogProfile extends AppCompatActivity {
         name = (EditText) findViewById(R.id.name);
         age = (EditText) findViewById(R.id.age);
         bio = (EditText) findViewById(R.id.bio);
+        isAvailable = (CheckBox) findViewById(R.id.checkBox);
 
         dogName = name.getText().toString();
         dogAge = age.getText().toString();
         dogBio = bio.getText().toString();
+        canBeAdopted = isAvailable.isChecked();
 
         if(dogName.isEmpty() || dogAge.isEmpty() || dogBio.isEmpty())
         {
@@ -235,9 +263,13 @@ public class CreateDogProfile extends AppCompatActivity {
 
         String compressed = compressImage(filePath);
         File fixedImage = new File(compressed);
+        dogName = dogName.replace(".", " ");
+
+        createDogInTable();
 
         TransferObserver observer = transferUtility.upload(Constants.BUCKET_NAME,
                 userName + "." + dogName, fixedImage);
+
         /*
          * Note that usually we set the transfer listener after initializing the
          * transfer. However it isn't required in this sample app. The flow is
@@ -246,6 +278,24 @@ public class CreateDogProfile extends AppCompatActivity {
          * -> set listeners to in progress transfers.
          */
         // observer.setTransferListener(new UploadListener());
+    }
+
+    private void createDogInTable()
+    {
+        TblDog newDog = new TblDog();
+        newDog.setUserId(userName + "." + dogName);
+        newDog.setDogName(dogName);
+        newDog.setDogAge(Double.parseDouble(dogAge));
+        newDog.setOwnerId(userName);
+        newDog.setIsOwned(canBeAdopted);
+        newDog.setDogBio(dogBio);
+        newDog.setLikes(0.0);
+        newDog.setComments(" ");
+
+        mAuthTask = new DogRegisterTask(true, newDog);
+        mAuthTask.execute((Void) null);
+
+        return;
     }
 
     /*
@@ -521,5 +571,44 @@ public class CreateDogProfile extends AppCompatActivity {
         }
 
         return inSampleSize;
+    }
+
+    public class DogRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Boolean isRight = false;
+        private TblDog dog = null;
+
+        DogRegisterTask(Boolean isAllowed, TblDog t) {
+            isRight = isAllowed;
+            dog = t;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            if(isRight) {
+                dynamoDBMapper.save(dog);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+        }
     }
 }
