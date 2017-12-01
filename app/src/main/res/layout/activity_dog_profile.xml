@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pupper115.pupper.DogProfile"
-    android:background="#E3DEDE">
+    tools:context="pupper115.pupper.DogProfile">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -90,7 +89,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/button_selector"
+                android:background="@drawable/ic_favorite_border_red_24dp"
                 android:layout_marginBottom="7dp"
                 android:onClick="likeDog"
                 android:text="0"
