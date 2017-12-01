@@ -185,6 +185,7 @@ public class DogProfile extends AppCompatActivity {
             likes.setActivated(true);
             likes.setClickable(false);
             likes.setTextColor(Color.WHITE);
+            likes.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
         }
 
         name.setText(dog.getDogName());
@@ -201,6 +202,7 @@ public class DogProfile extends AppCompatActivity {
         likes.setClickable(false);
         likes.setActivated(true);
         likes.setTextColor(Color.WHITE);
+        likes.setBackgroundResource(R.drawable.ic_favorite_red_24dp);
         dog.setLikedBy(userName);
         mAuthTask = new DogRegisterTask(true, dog);
         mAuthTask.execute((Void) null);
