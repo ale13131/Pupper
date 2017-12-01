@@ -170,7 +170,7 @@ public class DogProfile extends AppCompatActivity {
         }
         if(comments.contains("null") == false)
         {
-            bio = bio + "\n\n --------------------------Comments--------------------------";
+            bio = bio + "\n\n ----------Comments----------";
             bio = bio + comments;
         }
 

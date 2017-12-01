@@ -23,15 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_gravity="center|top"
-                android:layout_marginTop="15dp"
                 android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="15dp"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/doggo2" />
 
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="2dp"
-                android:background="#747474"/>
+                android:background="#747474" />
 
             <TextView
                 android:id="@+id/textViewDogName"
@@ -45,9 +45,22 @@
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_marginVertical="4dp"
                 android:layout_height="2dp"
-                android:background="#747474"/>
+                android:layout_marginVertical="4dp"
+                android:background="#747474" />
+
+            <Button
+                android:id="@+id/btnDogProfileLike"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_above="@+id/textView3"
+                android:layout_alignParentStart="true"
+                android:layout_weight="right"
+                android:background="@drawable/like_button_selector"
+                android:onClick="likeDog"
+                android:text="0"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewDogInfo"
@@ -58,19 +71,6 @@
                 android:text="@string/defaultDogInfo"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/btnDogProfileLike"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_above="@+id/textView3"
-                android:layout_alignParentStart="true"
-                android:background="@drawable/like_button_selector"
-                android:onClick="likeDog"
-                android:text="0"
-                android:textAlignment="center"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnDogProfileComment"
