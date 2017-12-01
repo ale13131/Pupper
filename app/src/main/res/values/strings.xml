@@ -62,5 +62,11 @@
     <string name="prompt_new_user_email">Email</string>
     <string name="prompt_confirm_new_user_register">Register!</string>
     <string name="prompt_new_user_is_adopting">Looking to adopt?</string>
+
+    <!-- Strings related to comment creation -->
+    <string name="activity_title_comment">Create New Comment</string>
+    <string name="activity_description_comment">Time to write your comment for the good doggo!!</string>
+    <string name="activity_prompt_comment">Type your comment here!</string>
+    <string name="activity_button_comment">Add Comment</string>
 </resources>
 

@@ -3,45 +3,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#E3DEDE"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/textViewNewCommentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/amethysta"
+            android:gravity="center"
+            android:text="@string/activity_title_comment"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_height="2dp"
+            android:background="#747474"/>
+
+        <TextView
+            android:id="@+id/textViewNewCommentDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="22dp"
-            android:text="Time to write your comment for the good doggo!!"
-            android:textSize="20dp"
-            android:id="@+id/textView2" />
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="@string/activity_description_dog_profile_create"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_height="2dp"
+            android:background="#747474"/>
 
         <EditText
             android:id="@+id/comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="81dp"
-            android:gravity="top|left"
-            android:hint="Type your comment here!"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="top|start"
+            android:hint="@string/activity_prompt_comment"
             android:inputType="textMultiLine"
             android:lines="4"
-            android:scrollbars="vertical">
+            android:scrollbars="vertical"
+            android:background="@android:color/white">
 
         </EditText>
 
         <Button
-            android:id="@+id/add"
+            android:id="@+id/buttonNewCommentAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
+            android:layout_marginTop="20dp"
             android:onClick="check"
-            android:text="Add Comment!" />
+            android:text="@string/activity_button_comment" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

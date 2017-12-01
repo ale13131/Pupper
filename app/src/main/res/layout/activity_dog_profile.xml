@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +10,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadeScrollbars="true"
-        android:layout_marginBottom="55dp">
+        android:layout_marginBottom="55dp"
+        android:fadeScrollbars="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             <ImageView
                 android:id="@+id/imageViewDogPhoto"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center|top"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="15dp"
@@ -55,6 +54,7 @@
                 android:id="@+id/textViewDogInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:layout_marginHorizontal="20dp"
                 android:fontFamily="@font/amethysta"
                 android:text="@string/defaultDogInfo"
@@ -66,13 +66,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:orientation="vertical"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
         <View
             android:layout_width="fill_parent"
             android:layout_height="2dp"
-            android:layout_marginVertical="4dp"
             android:background="#747474" />
 
         <LinearLayout
@@ -80,7 +79,8 @@
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="#ffffff">
 
 
             <Button
@@ -88,22 +88,22 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
-                android:background="@drawable/ic_favorite_border_red_24dp"
                 android:layout_marginBottom="7dp"
+                android:layout_marginRight="25dp"
+                android:background="@drawable/ic_favorite_border_red_24dp"
                 android:onClick="likeDog"
                 android:text="0"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginRight="25dp"
                 android:textSize="18sp" />
 
             <Button
                 android:id="@+id/btnDogProfileAdopt"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:gravity="center"
-                android:background="@mipmap/ic_adpot_btn"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="25dp"/>
+                android:layout_marginRight="25dp"
+                android:background="@mipmap/ic_adpot_btn"
+                android:gravity="center" />
 
             <Button
                 android:id="@+id/btnDogProfileComment"
