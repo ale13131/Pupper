@@ -48,7 +48,6 @@ import java.util.List;
 
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
-import pupper115.pupper.dbmapper.tables.TblUser;
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
 
@@ -211,7 +210,7 @@ public class CreateDogProfile extends AppCompatActivity {
         dogBio = bio.getText().toString();
         canBeAdopted = isAvailable.isChecked();
 
-        if(dogName.isEmpty() || dogAge.isEmpty() || dogBio.isEmpty())
+        if(dogName.trim().isEmpty() || dogAge.isEmpty() || dogBio.isEmpty() || dogBio.trim().isEmpty())
         {
             Context context = getApplicationContext();
             CharSequence text = "A field has been left empty!";
