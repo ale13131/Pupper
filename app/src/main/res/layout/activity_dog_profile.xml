@@ -103,6 +103,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="25dp"
                 android:background="@mipmap/ic_adpot_btn"
+                android:onClick="adoptDog"
                 android:gravity="center" />
 
             <Button

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +14,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import java.util.StringTokenizer;
@@ -206,6 +204,18 @@ public class DogProfile extends AppCompatActivity {
         dog.setLikedBy(userName);
         mAuthTask = new DogRegisterTask(true, dog);
         mAuthTask.execute((Void) null);
+    }
+
+    public void adoptDog(View v){
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("*/*");
+        intent.setData(Uri.parse("mailto:"));
+        String[] sendTo = {owner.getUserEmail()};
+        intent.putExtra(Intent.EXTRA_EMAIL, sendTo);
+        intent.putExtra(Intent.EXTRA_SUBJECT, "[Pupper] I want to adopt your dog");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello there. I want to adopt your dog");
+        startActivity(Intent.createChooser(intent, "Send Email"));
+
     }
 
     public void addComment(View v)
