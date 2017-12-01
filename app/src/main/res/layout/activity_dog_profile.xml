@@ -93,13 +93,22 @@
                 android:onClick="likeDog"
                 android:text="0"
                 android:textColor="@android:color/darker_gray"
+                android:layout_marginRight="25dp"
                 android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnDogProfileAdopt"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="@mipmap/ic_adpot_btn"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="25dp"/>
 
             <Button
                 android:id="@+id/btnDogProfileComment"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="7dp"
                 android:layout_toLeftOf="@id/btnDogProfileLike"
                 android:background="@drawable/ic_comment_black_24dp"
