@@ -192,7 +192,7 @@ public class DogProfile extends AppCompatActivity {
         info.setText(bio);
     }
 
-    public void likeDog(View v)
+    public void likeDogProfile(View v)
     {
         Button likes = (Button) findViewById(R.id.btnDogProfileLike);
         Double num = dog.getLikes();

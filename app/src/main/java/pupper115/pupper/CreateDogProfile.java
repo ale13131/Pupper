@@ -218,8 +218,7 @@ public class CreateDogProfile extends AppCompatActivity {
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else {
+        }else {
             Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
             getIntent.setType("image/*");
 
@@ -277,7 +276,7 @@ public class CreateDogProfile extends AppCompatActivity {
         newDog.setDogName(dogName);
         newDog.setDogAge(Double.parseDouble(dogAge));
         newDog.setOwnerId(userName);
-        newDog.setIsOwned(canBeAdopted);
+        newDog.setIsOwned(!canBeAdopted);
         newDog.setDogBio(dogBio);
         newDog.setLikes(0.0);
         newDog.setComments(" ");
