@@ -11,7 +11,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import pupper115.pupper.s3bucket.Constants;
 import pupper115.pupper.s3bucket.Util;
@@ -57,6 +60,10 @@ public class SwipeThrough extends AppCompatActivity {
     private boolean isNotPlaceholderDog = false;
     private String lastPicture = "init";
     private String penultimatePicture = "init";
+
+    private float x1,x2,y1,y2;
+    static final int MIN_DISTANCE = 150;
+    Vector<Integer> prevPictures = new Vector<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -158,12 +165,40 @@ public class SwipeThrough extends AppCompatActivity {
         }
         penultimatePicture = lastPicture;
         lastPicture = pictureName;
+        prevPictures.add(randomIndex);
 
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
 
         //++counter;
         isNotPlaceholderDog = true;
+    }
+
+    public void getLastDog(View v) {
+        ImageView img = (ImageView) findViewById(R.id.doggo1);
+
+        if(prevPictures.size() > 1) {
+            Object[] array = transferRecordMaps.toArray();
+
+            Integer lastIndex = prevPictures.size();
+
+            lastPicture = array[prevPictures.get(lastIndex - 1)].toString();
+            lastPicture = lastPicture.substring(5, lastPicture.length() - 1);
+
+            Object nextPicture = array[prevPictures.get(lastIndex - 2)];
+            prevPictures.remove(lastIndex - 1);
+
+            String pictureName = nextPicture.toString();
+            pictureName = pictureName.substring(5, pictureName.length() - 1);
+
+            Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
+                    .resize(1200, 1800).centerInside().into(img);
+        }
+        else
+        {
+            isNotPlaceholderDog = false;
+            img.setImageResource(R.drawable.doggo);
+        }
     }
 
     private void initData() {
@@ -248,4 +283,60 @@ public class SwipeThrough extends AppCompatActivity {
                 .setNegativeButton("No", null)
                 .show();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        switch(event.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                y2 = event.getY();
+                float deltaX = x2 - x1;
+                float deltaY = y2 - y1;
+
+                if (Math.abs(deltaX) > MIN_DISTANCE)
+                {
+                    // Left to Right swipe
+                    if (x2 > x1)
+                    {
+                        View temp = null;
+                        getLastDog(temp);
+                    }
+
+                    // Swipe Right to Left
+                    else
+                    {
+                        View temp = null;
+                        getNextDog(temp);
+                    }
+
+                }
+                if(Math.abs(deltaY) > MIN_DISTANCE)
+                {
+                    // Swipe top to bottom
+                    if (y2 > y1)
+                    {
+                        Toast.makeText(this, "Loading dog info", Toast.LENGTH_SHORT).show ();
+                        View temp = null;
+                        getMoreInfo(temp);
+                    }
+
+                    // Swipe bottom to top
+                    else
+                    {
+                        Toast.makeText(this, "Loading dog info", Toast.LENGTH_SHORT).show ();
+                        View temp = null;
+                        getMoreInfo(temp);
+                    }
+                }
+                break;
+        }
+        return super.onTouchEvent(event);
+    }
+
 }
