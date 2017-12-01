@@ -36,20 +36,17 @@ public class AddComment extends AppCompatActivity
         EditText cBox = (EditText) findViewById(R.id.comment);
         Log.d("HERE", cBox.getText().toString());
 
-        if(cBox.getText().toString().isEmpty() == false)
-        {
+        if(cBox.getText().toString().trim().isEmpty()) {
+            CharSequence text = "You didn't add a comment!!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }else{
             String comment = userFN + " says:  " + cBox.getText().toString();
             Intent intent = new Intent();
             intent.putExtra("comment", comment);
             setResult(1, intent);
             this.finish();
-        }
-        else
-        {
-            CharSequence text = "You didn't add a comment!!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
         }
     }
 }
