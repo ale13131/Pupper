@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E3DEDE"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewNewCommentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/amethysta"
+            android:gravity="center"
+            android:text="@string/activity_title_info"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:layout_marginBottom="10dp"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_height="2dp"
+            android:background="#747474"/>
+
+        <TextView
+            android:id="@+id/displayMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="@string/activity_description_info"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_height="2dp"
+            android:background="#747474"/>
+
+        <Spinner
+            android:id="@+id/activitySelect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/activity_drop_down_info"
+            android:prompt="@string/activity_drop_down_header_info" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginVertical="4dp"
+            android:layout_height="2dp"
+            android:background="#747474"/>
+
+        <TextView
+            android:id="@+id/displayHelpMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="5dp"
+            android:text="@string/activity_description_help_info"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -19,6 +19,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Create new dog!</string>
     <string name="title_notifications">Settings</string>
+    <string name="title_help">Help</string>
 
     <string name="pref_description_social_recommendations">Describe Social Recommendations</string>
     <string name="pref_title_social_recommendations">Title Social Rec</string>
@@ -68,5 +69,20 @@
     <string name="activity_description_comment">Time to write your comment for the good doggo!!</string>
     <string name="activity_prompt_comment">Type your comment here!</string>
     <string name="activity_button_comment">Add Comment</string>
+
+    <!-- Strings related to the help or info page -->
+    <string name="activity_title_info">How to Operate the App</string>
+    <string name="activity_description_info">Hello user, here is how to use the app</string>
+    <string name="activity_description_help_info">This is where the help information will go</string>
+    <string-array name="activity_drop_down_info">
+        <item> <font size = "20">Help Screen</font> </item>
+        <item><font size = "20">Main Screen</font> </item>
+        <item><font size = "20">Create a Dog</font> </item>
+        <item><font size = "20">Settings Screen</font> </item>
+        <item><font size = "20">Dog Profile</font> </item>
+        <item><font size = "20">Comment Screen</font> </item>
+    </string-array>
+    <string name="activity_drop_down_header_info">Choose a country</string>
+
 </resources>
 

@@ -11,12 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.GestureDetector;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
@@ -51,12 +50,10 @@ public class SwipeThrough extends AppCompatActivity {
     //Added by Josh for use in the dog displaying
     // The S3 client used for getting the list of objects in the bucket
     private AmazonS3Client s3;
-    private SimpleAdapter simpleAdapter;
     private ArrayList<HashMap<String, Object>> transferRecordMaps;
     private TransferUtility transferUtility;
     private String userName = "";
     private String password = "";
-    //private int counter = 0;
     private boolean isNotPlaceholderDog = false;
     private String lastPicture = "init";
     private String penultimatePicture = "init";
@@ -64,6 +61,7 @@ public class SwipeThrough extends AppCompatActivity {
     private float x1,x2,y1,y2;
     static final int MIN_DISTANCE = 150;
     Vector<Integer> prevPictures = new Vector<>();
+    BottomNavigationView navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -85,10 +83,33 @@ public class SwipeThrough extends AppCompatActivity {
 
                     break;
             }
+
             return true;
         }
 
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.action_help) {
+            transitionToNavActivity(AppInfo.class);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void transitionToNavActivity(Class targetActivity){
         Intent intent = new Intent(context, targetActivity)
@@ -112,8 +133,9 @@ public class SwipeThrough extends AppCompatActivity {
         transferUtility = Util.getTransferUtility(this);
         initData();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_home);
     }
 
     //ADDED by Josh until bottom
@@ -133,13 +155,6 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
     public void getNextDog(View v) {
-        //Context context = getApplicationContext();
-        /*CharSequence text = "Loading the good doggo...";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();*/
-
         ImageView img = (ImageView) findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
