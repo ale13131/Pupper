@@ -21,6 +21,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -134,6 +136,33 @@ public class CreateDogProfile extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(getApplication(), AppInfo.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            intent.putExtra("userName", userName);
+
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         // Get the data from any transfer's that have already happened,
@@ -218,8 +247,7 @@ public class CreateDogProfile extends AppCompatActivity {
 
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-        }
-        else {
+        }else {
             Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
             getIntent.setType("image/*");
 
@@ -277,7 +305,7 @@ public class CreateDogProfile extends AppCompatActivity {
         newDog.setDogName(dogName);
         newDog.setDogAge(Double.parseDouble(dogAge));
         newDog.setOwnerId(userName);
-        newDog.setIsOwned(canBeAdopted);
+        newDog.setIsOwned(!canBeAdopted);
         newDog.setDogBio(dogBio);
         newDog.setLikes(0.0);
         newDog.setComments(" ");

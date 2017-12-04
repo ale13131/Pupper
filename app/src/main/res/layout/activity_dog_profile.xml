@@ -91,7 +91,7 @@
                 android:layout_marginBottom="7dp"
                 android:layout_marginRight="25dp"
                 android:background="@drawable/ic_favorite_border_red_24dp"
-                android:onClick="likeDog"
+                android:onClick="likeDogProfile"
                 android:text="0"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="18sp" />
@@ -103,6 +103,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="25dp"
                 android:background="@mipmap/ic_adpot_btn"
+                android:onClick="adoptDog"
                 android:gravity="center" />
 
             <Button

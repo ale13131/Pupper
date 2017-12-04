@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -31,16 +33,20 @@ import pupper115.pupper.dbmapper.tables.TblUser;
 public class NewUser extends AppCompatActivity {
     UserMapperRepo userMapRepo;
     DynamoDBMapper dynamoDBMapper;
-    String userName = "";
-    String password = "";
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
     private UserRegisterTask mAuthTask = null;
+
+    private Context context;
+    private String userName = "";
+    private String password = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+
+        context = getApplication();
 
         AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -51,6 +57,33 @@ public class NewUser extends AppCompatActivity {
 
         EditText focus = findViewById(R.id.editTextFirstName);
         focus.requestFocus();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(getApplication(), AppInfo.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            intent.putExtra("userName", userName);
+
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void registerUser(View v) {
@@ -134,10 +167,19 @@ public class NewUser extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                //Login was successful, go to main screen
+                //Login was successful, go to main screen after the info page is displayed
                 Intent resultIntent = new Intent();
+
                 resultIntent.putExtra("userName",userName);
                 resultIntent.putExtra("password",password);
+
+
+                Intent displayInfo = new Intent(context, AppInfo.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                displayInfo.putExtra("userName", userName);
+                displayInfo.putExtra("password", password);
+                startActivity(displayInfo);
+
                 setResult(2, resultIntent);
                 finish();
             }

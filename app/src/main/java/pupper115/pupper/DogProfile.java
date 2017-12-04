@@ -4,25 +4,26 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import android.widget.Toast;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.auth.core.IdentityManager;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
 import java.util.StringTokenizer;
@@ -89,6 +90,33 @@ public class DogProfile extends AppCompatActivity {
 
         setImage(dogImage);
         setData(dogImage);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        if (id == R.id.action_help) {
+            Intent intent = new Intent(getApplication(), AppInfo.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            intent.putExtra("userName", userName);
+
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setImage( String imageName){
@@ -192,7 +220,7 @@ public class DogProfile extends AppCompatActivity {
         info.setText(bio);
     }
 
-    public void likeDog(View v)
+    public void likeDogProfile(View v)
     {
         Button likes = (Button) findViewById(R.id.btnDogProfileLike);
         Double num = dog.getLikes();
@@ -206,6 +234,27 @@ public class DogProfile extends AppCompatActivity {
         dog.setLikedBy(userName);
         mAuthTask = new DogRegisterTask(true, dog);
         mAuthTask.execute((Void) null);
+    }
+
+    public void adoptDog(View v){
+        if(dog.getIsOwned() == false) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setType("*/*");
+            intent.setData(Uri.parse("mailto:"));
+            String[] sendTo = {owner.getUserEmail()};
+            intent.putExtra(Intent.EXTRA_EMAIL, sendTo);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[Pupper] I want to adopt your dog");
+            intent.putExtra(Intent.EXTRA_TEXT, "Hello there. I want to adopt your dog");
+            startActivity(Intent.createChooser(intent, "Send Email"));
+        }
+        else
+        {
+            CharSequence text = "This dog is already owned!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
     }
 
     public void addComment(View v)
