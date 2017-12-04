@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.mobile.auth.core.IdentityManager;
@@ -236,14 +237,23 @@ public class DogProfile extends AppCompatActivity {
     }
 
     public void adoptDog(View v){
-        Intent intent = new Intent(Intent.ACTION_SENDTO);
-        intent.setType("*/*");
-        intent.setData(Uri.parse("mailto:"));
-        String[] sendTo = {owner.getUserEmail()};
-        intent.putExtra(Intent.EXTRA_EMAIL, sendTo);
-        intent.putExtra(Intent.EXTRA_SUBJECT, "[Pupper] I want to adopt your dog");
-        intent.putExtra(Intent.EXTRA_TEXT, "Hello there. I want to adopt your dog");
-        startActivity(Intent.createChooser(intent, "Send Email"));
+        if(dog.getIsOwned() == false) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setType("*/*");
+            intent.setData(Uri.parse("mailto:"));
+            String[] sendTo = {owner.getUserEmail()};
+            intent.putExtra(Intent.EXTRA_EMAIL, sendTo);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "[Pupper] I want to adopt your dog");
+            intent.putExtra(Intent.EXTRA_TEXT, "Hello there. I want to adopt your dog");
+            startActivity(Intent.createChooser(intent, "Send Email"));
+        }
+        else
+        {
+            CharSequence text = "This dog is already owned!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
 
     }
 
