@@ -38,14 +38,15 @@ import pupper115.pupper.dbmapper.tables.TblUser;
 
 public class SettingsActivity extends AppCompatActivity {
     // Amazon DB Client Object
+    final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
+    AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
     private Context context;
     DynamoDBMapper dynamoDBMapper;
     UserMapperRepo userMapRepo;
     TblUser user;
     private settingsTaskPull mPullTask = null;
 
-    final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
-    AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
+
 
     String userName = "";
     String password = "";

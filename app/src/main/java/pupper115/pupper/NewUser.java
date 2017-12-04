@@ -31,6 +31,8 @@ import pupper115.pupper.dbmapper.tables.TblUser;
 public class NewUser extends AppCompatActivity {
     UserMapperRepo userMapRepo;
     DynamoDBMapper dynamoDBMapper;
+    String userName = "";
+    String password = "";
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
     private UserRegisterTask mAuthTask = null;
@@ -53,8 +55,6 @@ public class NewUser extends AppCompatActivity {
 
     public void registerUser(View v) {
         Intent data = getIntent();
-        String userName = "";
-        String password;
         if (data != null)
             userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
@@ -136,6 +136,8 @@ public class NewUser extends AppCompatActivity {
             if (success) {
                 //Login was successful, go to main screen
                 Intent resultIntent = new Intent();
+                resultIntent.putExtra("userName",userName);
+                resultIntent.putExtra("password",password);
                 setResult(2, resultIntent);
                 finish();
             }
