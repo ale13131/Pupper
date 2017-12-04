@@ -103,18 +103,22 @@ public class SwipeThrough extends AppCompatActivity {
     //ADDED by Josh until bottom
     public void getMoreInfo(View v)
     {
-        ImageView img = (ImageView) findViewById(R.id.doggo1);
-        //Here is where the dog info will appear over the actual picture
-        /*Context context = getApplicationContext();
-        CharSequence text = "This isn't finished yet :-(";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();*/
+        if(counter > 0) {
+            ImageView img = (ImageView) findViewById(R.id.doggo1);
+            Intent intent = new Intent(context, DogProfile.class);
 
-        Intent intent = new Intent(context, DogProfile.class);
-
-        intent.putExtra("dogImage", lastPicture );
-        startActivity(intent);
+            intent.putExtra("dogImage", lastPicture);
+            intent.putExtra("userName", userName);
+            startActivity(intent);
+        }
+        else
+        {
+            Context context = getApplicationContext();
+            CharSequence text = "This is the placeholder dog!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
     }
 
     public void getNextDog(View v) {

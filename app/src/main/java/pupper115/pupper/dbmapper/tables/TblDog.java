@@ -7,10 +7,6 @@ import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBIndexRan
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBRangeKey;
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBTable;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 @DynamoDBTable(tableName = "pupper-mobilehub-909033989-tbl_Dog")
 
 public class TblDog {
@@ -23,6 +19,8 @@ public class TblDog {
     private String _dogLocation;
     private String _dogName;
     private Boolean _isOwned;
+    private Double _numOfLikes;
+    private String _comments;
 
     @DynamoDBHashKey(attributeName = "userId")
     @DynamoDBAttribute(attributeName = "userId")
@@ -99,4 +97,20 @@ public class TblDog {
         this._isOwned = _isOwned;
     }
 
+    @DynamoDBAttribute(attributeName = "numOfLikes")
+    public Double getLikes() {
+        return _numOfLikes;
+    }
+
+    public void likeDog() { ++this._numOfLikes; }
+    public void setLikes(final Double _numOfLikes) { this._numOfLikes = _numOfLikes; }
+
+    @DynamoDBAttribute(attributeName = "comments")
+    public String getComments() {
+        return _comments;
+    }
+
+    public void setComments(final String _comments) {
+        this._comments = this._comments + _comments ;
+    }
 }

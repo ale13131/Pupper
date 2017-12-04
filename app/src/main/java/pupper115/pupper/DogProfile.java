@@ -2,11 +2,13 @@ package pupper115.pupper;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +22,7 @@ import com.squareup.picasso.Picasso;
 import java.util.StringTokenizer;
 
 import pupper115.pupper.dbmapper.repos.DogMapperRepo;
-import pupper115.pupper.dbmapper.repos.UserMapperRepo;
 import pupper115.pupper.dbmapper.tables.TblDog;
-import pupper115.pupper.dbmapper.tables.TblUser;
 
 public class DogProfile extends AppCompatActivity {
     private Context context;
@@ -31,6 +31,9 @@ public class DogProfile extends AppCompatActivity {
     TblDog dog;
     private dogTaskPull mPullTask = null;
     String dogImage = "";
+    String bio = "";
+    String userName = "";
+    private DogRegisterTask mAuthTask = null;
 
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
@@ -41,6 +44,7 @@ public class DogProfile extends AppCompatActivity {
         setContentView(R.layout.activity_dog_profile);
         Bundle extras = getIntent().getExtras();
         dogImage = extras.getString("dogImage");
+        userName = extras.getString("userName");
 
         context = getApplication();
         AWSConfiguration awsConfig = null;
@@ -72,7 +76,7 @@ public class DogProfile extends AppCompatActivity {
     private void setData(String image)
     {
         Log.d("Image", image);
-        String bio = "The current owner of ";
+        bio = "The current owner of ";
         bio = bio + dog.getDogName() + " is " + dog.getOwnerId() + ". ";
         bio = bio + dog.getDogName() + " is currently ";
         //Pull from dog table if the dog is up for adoption
@@ -81,15 +85,69 @@ public class DogProfile extends AppCompatActivity {
         else
             bio = bio + "not up to be adopted. Sorry";
 
-        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ". ";
+        bio = bio + ". Here is a quick bio of " + dog.getDogName() + " from " + dog.getOwnerId() + ": \r\n";
         //Pull bio about dog and add it to the string
         bio = bio + dog.getDogBio();
+
+        String comments = dog.getComments().replaceAll("null", "");
+        if(comments.contains("null"))
+        {
+            comments.replaceAll("\0", "");
+            Log.d("HERE", comments);
+        }
+        if(comments.contains("null") == false)
+        {
+            bio = bio + "\n ------------Comments------------";
+            bio = bio + comments;
+        }
 
         TextView name = (TextView) findViewById(R.id.textViewDogName);
         TextView info = (TextView) findViewById(R.id.textViewDogInfo);
 
+        Button likes = (Button) findViewById(R.id.like);
+        Double num = dog.getLikes();
+        likes.setText("Likes: " + num.intValue());
+
         name.setText(dog.getDogName());
         info.setText(bio);
+    }
+
+    public void likeDog(View v)
+    {
+        Button likes = (Button) findViewById(R.id.like);
+        Double num = dog.getLikes();
+        dog.likeDog();
+        ++num;
+        likes.setText("Likes: " + num.intValue());
+        likes.setClickable(false);
+    }
+
+    public void addComment(View v)
+    {
+        //Create an activity to write a comment
+        Intent intent = new Intent(context, AddComment.class);
+        intent.putExtra("userName", userName);
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        switch (requestCode)
+        {
+            case 1:
+                String comment = data.getStringExtra("comment");
+                if(comment != null) {
+                    dog.setComments("\n" + comment);
+                    bio = bio + " \n" + comment;
+                }
+                mAuthTask = new DogRegisterTask(true, dog);
+                mAuthTask.execute((Void) null);
+
+                TextView info = (TextView) findViewById(R.id.textViewDogInfo);
+                info.setText(bio);
+                break;
+        }
     }
 
     private class dogTaskPull extends AsyncTask<Void, Void, Boolean> {
@@ -107,10 +165,9 @@ public class DogProfile extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params){
-            Log.d("ID:", dogImage);
-
             StringTokenizer tokens = new StringTokenizer(dogImage, ".");
             String first = tokens.nextToken(); //Dog owner ID
+            Log.d("ID:", dogImage + "     " + first);
 
             dog = dogMapRepo.getDog(dogImage, first);
             if (dog != null){
@@ -125,6 +182,45 @@ public class DogProfile extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             pDialog.dismiss();
+        }
+    }
+
+    public class DogRegisterTask extends AsyncTask<Void, Void, Boolean> {
+
+        private Boolean isRight = false;
+        private TblDog dog = null;
+
+        DogRegisterTask(Boolean isAllowed, TblDog t) {
+            isRight = isAllowed;
+            dog = t;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            if(isRight) {
+                dynamoDBMapper.save(dog);
+                return true;
+            }
+            else
+                return false;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
         }
     }
 
