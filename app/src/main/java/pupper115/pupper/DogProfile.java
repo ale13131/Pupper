@@ -53,6 +53,7 @@ public class DogProfile extends AppCompatActivity {
     String dogImage = "";
     String bio = "";
     String userName = "";
+    private String userFN = "";
     private DogRegisterTask mAuthTask = null;
 
 
@@ -70,6 +71,7 @@ public class DogProfile extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         dogImage = extras.getString("dogImage");
         userName = extras.getString("userName");
+        userFN = extras.getString("userFN");
 
         context = getApplication();
         AWSConfiguration awsConfig = null;
@@ -112,6 +114,7 @@ public class DogProfile extends AppCompatActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.putExtra("userName", userName);
+            intent.putExtra("userFN", userFN);
 
             startActivity(intent);
             return true;

@@ -54,6 +54,7 @@ public class SwipeThrough extends AppCompatActivity {
     private TransferUtility transferUtility;
     private String userName = "";
     private String password = "";
+    private String userFN = "";
     private boolean isNotPlaceholderDog = false;
     private String lastPicture = "init";
     private String penultimatePicture = "init";
@@ -116,6 +117,7 @@ public class SwipeThrough extends AppCompatActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("userName", userName);
         intent.putExtra("password", password);
+        intent.putExtra("userFN", userFN);
 
         startActivity(intent);
     }
@@ -128,6 +130,7 @@ public class SwipeThrough extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
+        userFN = data.getStringExtra("userFN");
 
         context = getApplication();
         transferUtility = Util.getTransferUtility(this);
@@ -144,6 +147,7 @@ public class SwipeThrough extends AppCompatActivity {
             Intent intent = new Intent(context, DogProfile.class);
             intent.putExtra("dogImage", lastPicture);
             intent.putExtra("userName", userName);
+            intent.putExtra("userFN", userFN);
             startActivity(intent);
         }
         else{
@@ -197,11 +201,11 @@ public class SwipeThrough extends AppCompatActivity {
 
             Integer lastIndex = prevPictures.size();
 
-            lastPicture = array[prevPictures.get(lastIndex - 1)].toString();
+            lastPicture = array[prevPictures.get(lastIndex - 2)].toString();
             lastPicture = lastPicture.substring(5, lastPicture.length() - 1);
 
             Object nextPicture = array[prevPictures.get(lastIndex - 2)];
-            prevPictures.remove(lastIndex - 1);
+            prevPictures.remove(lastIndex - 2);
 
             String pictureName = nextPicture.toString();
             pictureName = pictureName.substring(5, pictureName.length() - 1);

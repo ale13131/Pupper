@@ -47,6 +47,8 @@ public class SplashActivity2 extends AppCompatActivity {
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     intent2.putExtra("userName", userName);
                     intent2.putExtra("password", password);
+                    intent2.putExtra("userFN", data.getStringExtra("userFN"));
+                    Log.d("RESULT", data.getStringExtra("userFN"));
 
                     this.startActivity(intent2);
                     this.finish();

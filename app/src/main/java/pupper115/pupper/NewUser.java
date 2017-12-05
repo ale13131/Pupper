@@ -40,6 +40,7 @@ public class NewUser extends AppCompatActivity {
     private Context context;
     private String userName = "";
     private String password = "";
+    private String fName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,33 +60,6 @@ public class NewUser extends AppCompatActivity {
         focus.requestFocus();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        if (id == R.id.action_help) {
-            Intent intent = new Intent(getApplication(), AppInfo.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            intent.putExtra("userName", userName);
-
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     public void registerUser(View v) {
         Intent data = getIntent();
         if (data != null)
@@ -96,7 +70,7 @@ public class NewUser extends AppCompatActivity {
         EditText last = findViewById(R.id.editTextLastName);
         EditText eMail = findViewById(R.id.editTextEmail);
 
-        String fName = first.getText().toString();
+        fName = first.getText().toString();
         String lName = last.getText().toString();
         String email = eMail.getText().toString();
 
@@ -146,7 +120,6 @@ public class NewUser extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -172,12 +145,14 @@ public class NewUser extends AppCompatActivity {
 
                 resultIntent.putExtra("userName",userName);
                 resultIntent.putExtra("password",password);
+                resultIntent.putExtra("userFN", fName);
 
 
                 Intent displayInfo = new Intent(context, AppInfo.class)
                         .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 displayInfo.putExtra("userName", userName);
                 displayInfo.putExtra("password", password);
+                displayInfo.putExtra("userFN", fName);
                 startActivity(displayInfo);
 
                 setResult(2, resultIntent);
