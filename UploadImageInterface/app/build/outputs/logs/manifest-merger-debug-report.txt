@@ -1,0 +1,97 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:2:1-24:12
+	package
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:3:5-51
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+application
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:5:5-22:19
+MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/Sri/.android/build-cache/5604c693bd7d8af71ec83e92fb40ee6c87f12b33/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/d11e1aa766c52ed2fdb6a96bd7fe9e910591ea5a/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/54c9db053ccd79e8a5aad8318f88ff23873f391b/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Sri/.android/build-cache/e665bb43019a795f3c5d54283f74ea12d7758f5a/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Sri/.android/build-cache/76cc4cd05761ec9edc3f4f77a823ac8e075a54cc/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/f008ab23e964b6cafa1561658669e8c94bca3e6c/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/Sri/.android/build-cache/34d39b58409665d25040cb6338ccc7649865d092/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Sri/.android/build-cache/3438df752bf55fdffb0b70745e8ea9180e46d265/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Sri/.android/build-cache/d2a5158513b98c0f9037166c0b74a55d8e1daa80/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/8932d4c519a4e27ceb51c5c193fba152ba5f1aba/output/AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:10:9-35
+	android:roundIcon
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:9:9-54
+	android:allowBackup
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:11:9-40
+activity#com.example.sri.uploadimageinterface.UploadImageInterface
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:12:9-21:20
+	android:label
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:14:13-45
+	android:theme
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:15:13-56
+	android:name
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:13:13-49
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:16:13-20:29
+action#android.intent.action.MAIN
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:17:17-69
+	android:name
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:17:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:19:17-77
+	android:name
+		ADDED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml:19:27-74
+uses-sdk
+INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/Sri/.android/build-cache/5604c693bd7d8af71ec83e92fb40ee6c87f12b33/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/d11e1aa766c52ed2fdb6a96bd7fe9e910591ea5a/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/54c9db053ccd79e8a5aad8318f88ff23873f391b/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/Sri/.android/build-cache/56b7f9b9ea7bfe1a55936406e624b9e30d378d1e/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Sri/.android/build-cache/e665bb43019a795f3c5d54283f74ea12d7758f5a/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Sri/.android/build-cache/76cc4cd05761ec9edc3f4f77a823ac8e075a54cc/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/f008ab23e964b6cafa1561658669e8c94bca3e6c/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/Sri/.android/build-cache/34d39b58409665d25040cb6338ccc7649865d092/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Sri/.android/build-cache/3438df752bf55fdffb0b70745e8ea9180e46d265/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Sri/.android/build-cache/d2a5158513b98c0f9037166c0b74a55d8e1daa80/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/8932d4c519a4e27ceb51c5c193fba152ba5f1aba/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:appcompat-v7:26.0.0-alpha1] /Users/Sri/.android/build-cache/5604c693bd7d8af71ec83e92fb40ee6c87f12b33/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:animated-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/d11e1aa766c52ed2fdb6a96bd7fe9e910591ea5a/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-vector-drawable:26.0.0-alpha1] /Users/Sri/.android/build-cache/54c9db053ccd79e8a5aad8318f88ff23873f391b/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:recyclerview-v7:26.0.0-alpha1] /Users/Sri/.android/build-cache/56b7f9b9ea7bfe1a55936406e624b9e30d378d1e/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:transition:26.0.0-alpha1] /Users/Sri/.android/build-cache/e665bb43019a795f3c5d54283f74ea12d7758f5a/output/AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:support-v4:26.0.0-alpha1] /Users/Sri/.android/build-cache/76cc4cd05761ec9edc3f4f77a823ac8e075a54cc/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-media-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/f008ab23e964b6cafa1561658669e8c94bca3e6c/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-fragment:26.0.0-alpha1] /Users/Sri/.android/build-cache/34d39b58409665d25040cb6338ccc7649865d092/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-ui:26.0.0-alpha1] /Users/Sri/.android/build-cache/3438df752bf55fdffb0b70745e8ea9180e46d265/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-core-utils:26.0.0-alpha1] /Users/Sri/.android/build-cache/d2a5158513b98c0f9037166c0b74a55d8e1daa80/output/AndroidManifest.xml:25:5-27:41
+MERGED from [com.android.support:support-compat:26.0.0-alpha1] /Users/Sri/.android/build-cache/8932d4c519a4e27ceb51c5c193fba152ba5f1aba/output/AndroidManifest.xml:25:5-27:41
+	android:value
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:27:9-38
+	android:name
+		ADDED from [com.android.support:design:26.0.0-alpha1] /Users/Sri/.android/build-cache/45f412fb8e2e0c89d75a2c29954e0f570341e6da/output/AndroidManifest.xml:26:9-47

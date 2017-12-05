@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/Sri/AndroidStudioProjects/UploadImageInterface/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/Sri/AndroidStudioProjects/UploadImageInterface/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher_round.png",
+        "source": "/Users/Sri/AndroidStudioProjects/UploadImageInterface/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    }
+]
