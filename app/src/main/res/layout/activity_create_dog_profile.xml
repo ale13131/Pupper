@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/amethysta"
         android:text="@string/activity_title_dog_profile_create"
         android:textAlignment="center"
+        android:fontFamily="@font/amethysta"
         android:textColor="@android:color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
     <View
         android:layout_width="fill_parent"
-        android:layout_marginVertical="4dp"
         android:layout_height="2dp"
+        android:layout_marginVertical="4dp"
         android:background="#747474"/>
 
     <ScrollView
@@ -42,15 +42,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginHorizontal="10dp"
-                android:lines="2"
                 android:text="@string/activity_description_dog_profile_create"
                 android:textAlignment="center"
+                android:lines="2"
                 android:textSize="17dp"/>
 
             <View
                 android:layout_width="fill_parent"
-                android:layout_marginVertical="4dp"
                 android:layout_height="2dp"
+                android:layout_marginVertical="4dp"
                 android:background="#747474"/>
 
             <RelativeLayout
@@ -67,6 +67,7 @@
                     android:paddingEnd="1dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_name_dog"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -80,9 +81,8 @@
                     android:padding="5dp"
                     android:ems="10"
                     android:hint="@string/prompt_name_dog"
-                    android:singleLine="true"
                     android:inputType="textPersonName"
-                    android:background="@drawable/textedit_border_edit"
+                    android:singleLine="true"
                     android:nextFocusDown="@id/editTextDogAge">
 
                     <requestFocus />
@@ -104,6 +104,7 @@
                     android:paddingEnd="1dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_dog_age"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -117,9 +118,8 @@
                     android:padding="5dp"
                     android:ems="10"
                     android:hint="@string/prompt_dog_age_warning"
-                    android:singleLine="true"
                     android:inputType="number"
-                    android:background="@drawable/textedit_border_edit"
+                    android:singleLine="true"
                     android:nextFocusDown="@id/editTextDogBio">
 
                     <requestFocus />
@@ -141,6 +141,7 @@
                     android:paddingEnd="1dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_dog_bio"
+                    android:textColor="@android:color/black"
                     android:textSize="18sp"/>
 
                 <EditText
@@ -154,11 +155,10 @@
                     android:padding="5dp"
                     android:ems="10"
                     android:hint="@string/prompt_dog_bio_description"
-                    android:maxLines="6"
                     android:inputType="textMultiLine"
+                    android:maxLines="6"
                     android:gravity="top|start"
-                    android:scrollbars="vertical"
-                    android:background="@drawable/textedit_border_edit">
+                    android:scrollbars="vertical">
                 </EditText>
 
             </RelativeLayout>
@@ -182,8 +182,8 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:onClick="checkResponse"
-                    android:text="@string/prompt_confirm_dog_profile" />
+                    android:text="@string/prompt_confirm_dog_profile"
+                    android:onClick="checkResponse"/>
 
             </TableLayout>
         </LinearLayout>

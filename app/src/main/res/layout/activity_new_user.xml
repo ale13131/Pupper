@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/amethysta"
+        android:layout_marginBottom="10dp"
         android:text="@string/activity_title_new_user_create"
         android:textAlignment="center"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
-        android:layout_marginBottom="10dp"/>
+        android:fontFamily="@font/amethysta"
+        android:textSize="30sp"/>
 
     <View
         android:layout_width="fill_parent"
@@ -43,11 +43,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginHorizontal="14dp"
-                android:lines="3"
                 android:text="@string/activity_description_new_user_create"
                 android:textAlignment="center"
-                android:textSize="17dp"
-                android:fontFamily="@font/adamina"/>
+                android:lines="3"
+                android:fontFamily="@font/adamina"
+                android:textSize="17dp"/>
 
             <View
                 android:layout_width="fill_parent"
@@ -57,8 +57,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:background="#ffffff">
+                android:layout_height="47dp">
 
                 <TextView
                     android:id="@+id/textViewFirstName"
@@ -66,12 +65,12 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
-                    android:fontFamily="@font/adamina"
                     android:paddingEnd="1dp"
                     android:paddingStart="15dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_new_user_first_name"
                     android:textColor="@android:color/black"
+                    android:fontFamily="@font/adamina"
                     android:textSize="18sp" />
 
                 <EditText
@@ -85,10 +84,10 @@
                     android:padding="5dp"
                     android:ems="10"
                     android:hint="@string/prompt_new_user_first_name"
-                    android:singleLine="true"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/editTextLastName"
-                    android:fontFamily="@font/adamina">
+                    android:singleLine="true"
+                    android:fontFamily="@font/adamina"
+                    android:nextFocusDown="@id/editTextLastName">
 
                     <requestFocus />
                 </EditText>
@@ -97,8 +96,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:background="#ffffff">
+                android:layout_height="47dp">
 
                 <TextView
                     android:id="@+id/textViewLastName"
@@ -106,12 +104,12 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
-                    android:fontFamily="@font/adamina"
                     android:paddingEnd="1dp"
                     android:paddingStart="15dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_new_user_last_name"
                     android:textColor="@android:color/black"
+                    android:fontFamily="@font/adamina"
                     android:textSize="18sp" />
 
                 <EditText
@@ -125,17 +123,16 @@
                     android:padding="5dp"
                     android:ems="10"
                     android:hint="@string/prompt_new_user_last_name"
-                    android:singleLine="true"
                     android:inputType="textPersonName"
-                    android:nextFocusDown="@id/editTextEmail"
-                    android:fontFamily="@font/adamina"/>
+                    android:singleLine="true"
+                    android:fontFamily="@font/adamina"
+                    android:nextFocusDown="@id/editTextEmail"/>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:background="#ffffff">
+                android:layout_height="47dp">
 
                 <TextView
                     android:id="@+id/textViewEmail"
@@ -143,12 +140,12 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
-                    android:fontFamily="@font/adamina"
                     android:paddingEnd="1dp"
                     android:paddingStart="15dp"
                     android:paddingTop="7dp"
                     android:text="@string/prompt_new_user_email"
                     android:textColor="@android:color/black"
+                    android:fontFamily="@font/adamina"
                     android:textSize="18sp" />
 
                 <EditText
