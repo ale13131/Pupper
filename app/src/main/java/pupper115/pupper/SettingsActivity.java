@@ -52,6 +52,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     String userName = "";
     String password = "";
+    private String userFN = "";
 
     // UI references to settings pages :'D
     private CheckBox mAdoptingFlag;
@@ -100,6 +101,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
+        userFN = data.getStringExtra("userFN");
 
         AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -159,6 +161,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.putExtra("userName", userName);
+            intent.putExtra("userFN", userFN);
 
             startActivity(intent);
             return true;
@@ -167,7 +170,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void trySaveUserSettings(View v){
-        String userFN = mUserFN.getText().toString();
+        userFN = mUserFN.getText().toString();
         String userLN = mUserLN.getText().toString();
         String userEmail = mUserEmail.getText().toString();
         Boolean adoptingFlag = mAdoptingFlag.isChecked();

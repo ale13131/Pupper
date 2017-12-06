@@ -55,7 +55,7 @@ import pupper115.pupper.s3bucket.Util;
 
 /**
  * Created by Josh
- * This file was altered from the amazon aws github for uploading to the S3 buckets
+ * This file was altered from the Amazon AWS GitHub for uploading to the S3 buckets
  * It took a lot to get it working to this point due to AWS changing their code multiple
  * times on me. This page takes in the relevant information from the user about their dog
  * and has them select a picture once ALL of the fields are filled. It then prompts the user
@@ -82,6 +82,7 @@ public class CreateDogProfile extends AppCompatActivity {
 
     private String userName = "";
     private String password = "";
+    private String userFN = "";
 
     private DogRegisterTask mAuthTask = null;
 
@@ -120,6 +121,7 @@ public class CreateDogProfile extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
+        userFN = data.getStringExtra("userFN");
 
         AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
@@ -155,6 +157,7 @@ public class CreateDogProfile extends AppCompatActivity {
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.putExtra("userName", userName);
+            intent.putExtra("userFN", userFN);
 
             startActivity(intent);
             return true;
