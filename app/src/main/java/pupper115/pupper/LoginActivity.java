@@ -253,7 +253,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Boolean isGood = false;
 
         if(password.length() > 7)
-            if(password.matches("[a-zA-Z ]*\\d+[a-zA-Z ]*\\d*"))
+            if(password.matches("^(?=.*\\d)(?=.*[a-zA-Z]).{8,}$"))
                 isGood = true;
 
         return isGood;

@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,8 +17,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
@@ -54,7 +51,7 @@ public class SwipeThrough extends AppCompatActivity {
     private TransferUtility transferUtility;
     private String userName = "";
     private String password = "";
-    private String userFN = "";
+    private String userFullName = "";
     private boolean isNotPlaceholderDog = false;
     private String lastPicture = "init";
     private String penultimatePicture = "init";
@@ -79,32 +76,31 @@ public class SwipeThrough extends AppCompatActivity {
                 case R.id.navigation_createDog:
                     //Should be the upload page
                     transitionToNavActivity(CreateDogProfile.class);
-
                     break;
                 case R.id.navigation_settings:
                     //Should be the settings page
                     transitionToNavActivity(SettingsActivity.class);
-
                     break;
             }
-
             return true;
         }
 
     };
 
+    /*This function adds the help button to the action bar*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /*This function allows the help button to take you to the help screen*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_help) {
@@ -119,12 +115,13 @@ public class SwipeThrough extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /*This function was created because of */
     private void transitionToNavActivity(Class targetActivity){
         Intent intent = new Intent(context, targetActivity)
-                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("userName", userName);
         intent.putExtra("password", password);
-        intent.putExtra("userFN", userFN);
+        intent.putExtra("userFN", userFullName);
 
         startActivity(intent);
     }
@@ -137,7 +134,7 @@ public class SwipeThrough extends AppCompatActivity {
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
-        userFN = data.getStringExtra("userFN");
+        userFullName = data.getStringExtra("userFN");
 
         context = getApplication();
         transferUtility = Util.getTransferUtility(this);
@@ -154,7 +151,7 @@ public class SwipeThrough extends AppCompatActivity {
             Intent intent = new Intent(context, DogProfile.class);
             intent.putExtra("dogImage", lastPicture);
             intent.putExtra("userName", userName);
-            intent.putExtra("userFN", userFN);
+            intent.putExtra("userFN", userFullName);
             startActivity(intent);
         }
         else{

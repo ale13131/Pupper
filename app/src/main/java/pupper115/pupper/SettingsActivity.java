@@ -184,7 +184,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_lost) {
-            Intent intent = new Intent(getApplication(), AppInfo.class)
+            Intent intent = new Intent(getApplication(), DogLost.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             intent.putExtra("userName", userName);
