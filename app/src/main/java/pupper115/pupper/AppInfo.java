@@ -18,36 +18,45 @@ import android.widget.TextView;
  */
 
 public class AppInfo extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private String userName;
+    // userFN is the user first name
+    private String userFN;
+
+    // infoSelect is the drop down menu, it selects the topic to display info about
     private Spinner infoSelect;
 
+    // onCreate is called when the page first loads
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Displays the xml file for the display
         setContentView(R.layout.app_info);
 
-        Intent data = getIntent();
-        userName = data.getStringExtra("userName");
+        // Set the user first name
+        userFN = getIntent().getStringExtra("userFN");
 
-        infoSelect = (Spinner) findViewById(R.id.activitySelect);
+        // Initialize the spinner selector
+        infoSelect = findViewById(R.id.activitySelect);
         infoSelect.setOnItemSelectedListener(this);
 
+        // Display the information
         displayHowTo();
     }
 
+    // Displays the top message in the help screen
     public void displayHowTo()
     {
-        TextView displayMessage = (TextView) findViewById(R.id.displayMessage);
-        String info = "Hello " + userName + ", here is how to use the best dog app, Pupper.\n";
+        // Display help paragraph that tells the user to select the spinner
+        TextView displayMessage = findViewById(R.id.displayMessage);
+        String info = "Hello " + userFN + ", here is how to use the best dog app, Pupper.\n";
         info = info + "\nPlease select a feature from the menu below to see more information on it";
         displayMessage.setText(info);
     }
 
-
+    // The listener function for the spinner
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("Selected", Integer.toString(i));
-        TextView infoMessage = (TextView) findViewById(R.id.displayHelpMessage);
+        TextView infoMessage = findViewById(R.id.displayHelpMessage);
         String infoDisplay;
 
         switch (i)

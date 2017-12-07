@@ -87,6 +87,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private TblUser user;
+    private Boolean isNew = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -362,27 +365,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
-            TblUser user = userMapRepo.getUser(mEmail);
+            user = userMapRepo.getUser(mEmail);
 
-            // TODO: register the new account here.
             Intent resultIntent = new Intent();
             setResult(1, resultIntent);
 
             resultIntent.putExtra("userName", mEmail);
-            Log.d("NewFile", mEmail);
             resultIntent.putExtra("password", mPassword);
 
             if(user != null) {
-                if (mPassword.equals(user.getUserPassword()))
+                if (mPassword.equals(user.getUserPassword())) {
+                    resultIntent.putExtra("userFN", user.getUserFN());
+                    isNew = false;
+                    Log.d("RESULT", user.getUserFN());
                     return true;
+                }
                 else
                     return false;
             }
@@ -402,11 +405,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("userName", mEmail);
                 resultIntent.putExtra("password", mPassword);
+                if(isNew == false)
+                    resultIntent.putExtra("userFN", user.getUserFN());
                 setResult(2, resultIntent);
-
-                resultIntent.putExtra("userName", mEmail);
-                Log.d("NewFile", mEmail);
-                resultIntent.putExtra("password", mPassword);
 
                 finish();
             }
