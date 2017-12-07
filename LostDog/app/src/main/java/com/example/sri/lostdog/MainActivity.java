@@ -1,5 +1,3 @@
-package com.example.sri.doglost;
-
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -28,7 +26,7 @@ public class DogLost extends AppCompatActivity {
         show = (Button)findViewById(R.id.show);
         show.setOnClickListener(new View.onClickListener()){
             @Override
-            public void onClick(View view){
+            public void onClick(View,view){
                 myCustomAlertDialog();
             }
         });
@@ -46,17 +44,15 @@ public class DogLost extends AppCompatActivity {
         close.setEnabled(true);
 
         open.setOnClickListener(new View.OnClickListener());{
-            public void onClick(View view){
+            public void onClick(View,view){
                 Toast.makeText(getApplicationContext(), "I am a lost dog!", Toast.LENGTH_LONG).show()
             }
         }
         close.setOnClickListener(new View.OnClickListener());{
-            public void onClick(View view){
+            public void onClick(View,view){
                 myDialog.cancel();
             }
         }
-       myDialog.show();
+        myDialog.show();
     }
-    }
-
-
+}

@@ -21,25 +21,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation = "horizontal"
-        
 
-        <Button
-            android:layout_width = "wrap_content"
-            android:layout_height="29dp"
-            android:id = "@+id/open"
-            android:layout_gravity="center|left"
-            android:text="Lost Dog: Buzz the Golden Retriever"
-            style = "?android:attr/borderlessButtonStyle"
-            android:layout_margin="5dp"/>
 
-        <Button
-            android:layout_width = "wrap_content"
-            android:layout_height="wrap_content"
-            android:id = "@+id/close"
-            android:layout_gravity="center|right"
-            android:text="1(831) 555 - 1342"
-            style = "?android:attr/borderlessButtonStyle"
-            android:layout_margin="5dp"/>
+    <Button
+        android:layout_width = "wrap_content"
+        android:layout_height="29dp"
+        android:id = "@+id/open"
+        android:layout_gravity="center|start"
+        android:text="@string/lost_dog"
+        style = "?android:attr/borderlessButtonStyle"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content"
+        android:id = "@+id/close"
+        android:layout_gravity="center|end"
+        android:text="@string/ph55555558431"
+        style = "?android:attr/borderlessButtonStyle"
+        android:layout_margin="5dp"/>
     </LinearLayout>
-
-</LinearLayout>
+    </LinearLayout>

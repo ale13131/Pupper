@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.sri.doglost.DogLost">
+    tools:context="com.example.sri.lostdog.MainActivity">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lost Dog!"
+        android:layout_gravity='center'
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:id="@+id/show"/>
+
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +32,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_dog_lost" />
+    <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
