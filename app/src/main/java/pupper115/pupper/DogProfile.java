@@ -128,6 +128,8 @@ public class DogProfile extends AppCompatActivity {
                 .resize(1200, 1800).centerInside().into(img);
     }
 
+    // added by Chris
+
     @SerializedName("name")
     @Expose
     private String name;

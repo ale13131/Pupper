@@ -12,11 +12,14 @@ import com.mindorks.placeholderview.annotations.swipe.*;
 
 /**
  * Created by Chris Yeh on 11/27/2017.
+ * Unused in main program
+ * Class created to hold and display dog info in cards to be swiped on
  */
 
 @Layout(R.layout.activity_dog_card_view)
 public class DogCard {
 
+    // variable declaration
     @View(R.id.profileImageView)
     private ImageView profileImageView;
 
@@ -30,12 +33,14 @@ public class DogCard {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
+    // constructor
     public DogCard(Context context, DogProfile profile, SwipePlaceHolderView swipeView) {
         mContext = context;
         mProfile = profile;
         mSwipeView = swipeView;
     }
 
+    // retrieve dog info
     @Resolve
     private void onResolved(){
         Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
@@ -43,6 +48,7 @@ public class DogCard {
         locationNameTxt.setText(mProfile.getLocation());
     }
 
+    // Swipe events
     @SwipeOut
     private void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
@@ -59,6 +65,7 @@ public class DogCard {
         Log.d("EVENT", "onSwipedIn");
     }
 
+    // swipe event animations
     @SwipeInState
     private void onSwipeInState(){
         Log.d("EVENT", "onSwipeInState");
