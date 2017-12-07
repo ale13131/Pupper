@@ -72,6 +72,20 @@ public class AddComment extends AppCompatActivity
             return true;
         }
 
+        // If warning button is clicked, go to lost dog page
+        if (id == R.id.action_lost) {
+            // Create the intent for the help page
+            Intent intent = new Intent(context, DogLost.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            // Put the user's name in so the help page can display it
+            intent.putExtra("userName", userFN);
+
+            // Start the help page
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

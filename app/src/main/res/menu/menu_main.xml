@@ -3,12 +3,18 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
-
     <item
         android:id="@+id/action_help"
         android:icon="@drawable/ic_help_white_24dp"
+        android:orderInCategory="2"
         android:title="@string/title_help"
-        app:showAsAction="always"
-        android:orderInCategory="0"/>
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_lost"
+        android:icon="@drawable/ic_warning_black_24dp"
+        android:orderInCategory="1"
+        android:title="@string/title_lost"
+        app:showAsAction="always" />
 
 </menu>

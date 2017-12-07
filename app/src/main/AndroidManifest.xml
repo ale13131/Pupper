@@ -40,6 +40,9 @@
             android:name=".AppInfo"
             android:label="Pupper" />
         <activity
+            android:name=".DogLost"
+            android:label="Pupper" />
+        <activity
             android:name=".SplashActivity2"
             android:label="Pupper"
             android:theme="@style/AppTheme.NoActionBar">

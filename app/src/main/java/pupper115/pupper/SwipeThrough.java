@@ -112,6 +112,10 @@ public class SwipeThrough extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_lost) {
+            transitionToNavActivity(DogLost.class);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
