@@ -300,23 +300,23 @@ public class SettingsActivity extends AppCompatActivity {
     // Checks if email is valid within our language
     // Input: <email>
     // Output: true | false
-    private boolean isEmailValid(String email) {
-        Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    static protected boolean isEmailValid(String email) {
+        Pattern p = Pattern.compile("^([A-Z|a-z|0-9](\\.|_){0,1})+[A-Z|a-z|0-9]\\@([A-Z|a-z|0-9])+((\\.){0,1}[A-Z|a-z|0-9]){2}\\.[a-z]{2,3}$");
         Matcher m = p.matcher(email);
         boolean b = m.find();
 
         if(email.isEmpty())
             return false;
         else if(b)
-            return false;
+            return true;
 
-        return true;
+        return false;
     }
     
     // Checks if password is valid.
     // Input: <password>
     // Output: true | false
-    private boolean isPasswordValid(String password) {
+    static protected boolean isPasswordValid(String password) {
         Boolean isGood = false;
 
         if(password.length() > 7)
