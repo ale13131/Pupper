@@ -166,6 +166,18 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+
+        if (id == R.id.action_lost) {
+            Intent intent = new Intent(getApplication(), AppInfo.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            intent.putExtra("userName", userName);
+            intent.putExtra("userFN", userFN);
+
+            startActivity(intent);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
