@@ -75,11 +75,11 @@ public class SwipeThrough extends AppCompatActivity {
                     break;
                 case R.id.navigation_createDog:
                     //Should be the upload page
-                    transitionToNavActivity(CreateDogProfile.class);
+                    transitionToOtherActivity(CreateDogProfile.class);
                     break;
                 case R.id.navigation_settings:
                     //Should be the settings page
-                    transitionToNavActivity(SettingsActivity.class);
+                    transitionToOtherActivity(SettingsActivity.class);
                     break;
             }
             return true;
@@ -87,7 +87,7 @@ public class SwipeThrough extends AppCompatActivity {
 
     };
 
-    /*This function adds the help button to the action bar*/
+    /*This function adds the buttons to the action bar*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -95,7 +95,7 @@ public class SwipeThrough extends AppCompatActivity {
         return true;
     }
 
-    /*This function allows the help button to take you to the help screen*/
+    /*This function lets the action bar buttons take you to another activity*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -104,24 +104,25 @@ public class SwipeThrough extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_help) {
-            transitionToNavActivity(AppInfo.class);
+            transitionToOtherActivity(AppInfo.class);
             return true;
         }
 
         if (id == R.id.action_lost) {
-            transitionToNavActivity(DogLost.class);
+            transitionToOtherActivity(DogLost.class);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /*This function was created because of */
-    private void transitionToNavActivity(Class targetActivity){
+
+    private void transitionToOtherActivity(Class targetActivity){
         Intent intent = new Intent(context, targetActivity)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("userName", userName);
         intent.putExtra("password", password);
         intent.putExtra("userFN", userFullName);
+        intent.putExtra("dogImage", lastPicture);
 
         startActivity(intent);
     }
@@ -145,16 +146,12 @@ public class SwipeThrough extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_home);
     }
 
-    //ADDED by Josh until bottom
+    //ADDED by Josh until bottom. Improved/reviewed by various team members
+    /*Happens as a result of vertical swipe or pressing the "more info" button*/
     public void getMoreInfo(View v){
-        if(isNotPlaceholderDog) {
-            Intent intent = new Intent(context, DogProfile.class);
-            intent.putExtra("dogImage", lastPicture);
-            intent.putExtra("userName", userName);
-            intent.putExtra("userFN", userFullName);
-            startActivity(intent);
-        }
-        else{
+        if(isNotPlaceholderDog){
+            transitionToOtherActivity(DogProfile.class);
+        }else{
             CharSequence text = "This is the placeholder dog!";
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
@@ -162,7 +159,8 @@ public class SwipeThrough extends AppCompatActivity {
         }
     }
 
-    public void getNextDog(View v) {
+    /*Happens as a result of swiping right to left (or pressing the "next dog" button*/
+    public void getNextDog(View v){
         ImageView img = findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
@@ -196,6 +194,7 @@ public class SwipeThrough extends AppCompatActivity {
         isNotPlaceholderDog = true;
     }
 
+    /*Happens as a result of swiping left to right*/
     public void getLastDog(View v) {
         ImageView img = findViewById(R.id.doggo1);
 
@@ -239,7 +238,7 @@ public class SwipeThrough extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_home);
     }
 
-    //To get the dog pictures at the first instance of going to the page
+    //gets the dog pictures at the first instance of going to the page
     private class GetFileListTask extends AsyncTask<Void, Void, Void> {
         // The list of objects we find in the S3 bucket
         private List<S3ObjectSummary> s3ObjList;
