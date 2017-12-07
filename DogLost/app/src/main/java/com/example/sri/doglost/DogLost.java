@@ -24,8 +24,8 @@ public class DogLost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dog_lost);
 
-        show = (Button)findViewById(R.id.show);
-        show.setOnClickListener(new View.onClickListener()){
+        open = (Button)findViewById(R.id.open);
+        open.setOnClickListener(new View.onClickListener()){
             @Override
             public void onClick(View v){
                 myCustomAlertDialog();
