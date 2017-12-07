@@ -59,7 +59,10 @@ public class SwipeThrough extends AppCompatActivity {
     private String lastPicture = "init";
     private String penultimatePicture = "init";
 
+    // x1 is the start where the user touches, x2 is where their finger leaves the screen (X-axis)
+    // y1 is the start where the user touches, y2 is where their finger leaves the screen (Y-axis)
     private float x1,x2,y1,y2;
+    // MIN_DISTANCE is the minimum distance the user must swipe to activate actions
     static final int MIN_DISTANCE = 150;
     Vector<Integer> prevPictures = new Vector<>();
     BottomNavigationView navigation;
@@ -136,7 +139,7 @@ public class SwipeThrough extends AppCompatActivity {
         transferUtility = Util.getTransferUtility(this);
         initData();
 
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(R.id.navigation_home);
     }
@@ -159,7 +162,7 @@ public class SwipeThrough extends AppCompatActivity {
     }
 
     public void getNextDog(View v) {
-        ImageView img = (ImageView) findViewById(R.id.doggo1);
+        ImageView img = findViewById(R.id.doggo1);
 
         int range  = transferRecordMaps.size();
         Object [] array = transferRecordMaps.toArray();
@@ -189,12 +192,11 @@ public class SwipeThrough extends AppCompatActivity {
         Picasso.with(this).load("https://s3.amazonaws.com/pupper-user-info/" + pictureName).noFade()
                 .resize(1200, 1800).centerInside().into(img);
 
-        //++counter;
         isNotPlaceholderDog = true;
     }
 
     public void getLastDog(View v) {
-        ImageView img = (ImageView) findViewById(R.id.doggo1);
+        ImageView img = findViewById(R.id.doggo1);
 
         if(prevPictures.size() > 1) {
             Object[] array = transferRecordMaps.toArray();
@@ -223,8 +225,7 @@ public class SwipeThrough extends AppCompatActivity {
     private void initData() {
         // Gets the default S3 client.
         s3 = Util.getS3Client(SwipeThrough.this);
-        transferRecordMaps = new ArrayList<HashMap<String, Object>>();
-        TransferListener listener = new DownloadListener();
+        transferRecordMaps = new ArrayList<>();
     }
 
     @Override
@@ -232,6 +233,9 @@ public class SwipeThrough extends AppCompatActivity {
         super.onResume();
         // Refresh the file list.
         new GetFileListTask().execute();
+
+        // Set the selected menu back to main
+        navigation.setSelectedItemId(R.id.navigation_home);
     }
 
     //To get the dog pictures at the first instance of going to the page
@@ -264,25 +268,6 @@ public class SwipeThrough extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             dialog.dismiss();
-        }
-    }
-
-    private class DownloadListener implements TransferListener {
-        // Simply updates the list when notified.
-        @Override
-        public void onError(int id, Exception e) {
-            Log.e("DownloadListener", "onError: " + id, e);
-        }
-
-        @Override
-        public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-            Log.d("DownloadListener", String.format("onProgressChanged: %d, total: %d, current: %d",
-                    id, bytesTotal, bytesCurrent));
-        }
-
-        @Override
-        public void onStateChanged(int id, TransferState state) {
-            Log.d("DownloadListener", "onStateChanged: " + id + ", " + state);
         }
     }
 

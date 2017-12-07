@@ -209,6 +209,7 @@ public class DogProfile extends AppCompatActivity {
 
         TextView name = (TextView) findViewById(R.id.textViewDogName);
         TextView info = (TextView) findViewById(R.id.textViewDogInfo);
+        TextView age = (TextView) findViewById(R.id.textViewDogAge);
 
         Button likes = (Button) findViewById(R.id.btnDogProfileLike);
         Double num = dog.getLikes();
@@ -223,6 +224,12 @@ public class DogProfile extends AppCompatActivity {
 
         name.setText(dog.getDogName());
         info.setText(bio);
+
+        Double dAge = dog.getDogAge();
+        if(dAge > 1)
+            age.setText(dAge.intValue() + " years old");
+        else
+            age.setText(dAge.intValue() + " year old");
     }
 
     public void likeDogProfile(View v)
@@ -241,6 +248,7 @@ public class DogProfile extends AppCompatActivity {
         mAuthTask.execute((Void) null);
     }
 
+    // Created by Joseph, altered by Josh to check for if the dog can be adopted
     public void adoptDog(View v){
         if(dog.getIsOwned() == false) {
             Intent intent = new Intent(Intent.ACTION_SENDTO);
@@ -284,7 +292,7 @@ public class DogProfile extends AppCompatActivity {
                     mAuthTask = new DogRegisterTask(true, dog);
                     mAuthTask.execute((Void) null);
 
-                    TextView info = (TextView) findViewById(R.id.textViewDogInfo);
+                    TextView info = findViewById(R.id.textViewDogInfo);
                     info.setText(bio);
                     break;
             }
@@ -316,10 +324,8 @@ public class DogProfile extends AppCompatActivity {
             user = userMapRepo.getUser(userName);
 
             if (dog != null){
-                Log.d("Results", "WORKED!!!!");
                 return true;
             }else{
-                Log.d("Results", dogImage);
                 return false;
             }
         }
