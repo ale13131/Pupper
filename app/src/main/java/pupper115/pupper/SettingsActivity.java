@@ -39,21 +39,24 @@ import pupper115.pupper.dbmapper.tables.TblUser;
  */
 
 public class SettingsActivity extends AppCompatActivity {
-    // Amazon DB Client Object
+    // Instantiate AWS DB Client
+    // Create the following objects to communicate with Amazon NoSQL DB.
     final AWSCredentialsProvider credentialsProvider = IdentityManager.getDefaultIdentityManager().getCredentialsProvider();
     AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
-    private Context context;
     DynamoDBMapper dynamoDBMapper;
     UserMapperRepo userMapRepo;
-    TblUser user;
+    
+    // Android Context
+    private Context context;
+    
+    
     private settingsTaskPull mPullTask = null;
-
-
 
     String userName = "";
     String password = "";
     private String userFN = "";
-
+    TblUser user;
+    
     // UI references to settings pages :'D
     private CheckBox mAdoptingFlag;
     private EditText mUserEmail;
@@ -66,6 +69,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Textwatcher to watch for password fields
     // Taken from slackoverflow@petey
+    // Used to watch Confirm/Change password fields
+    // Watchs the Change Password field. If text is entered, allow user to enter into the change password field
+    // Else prevent user from entering into field
     private TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -91,25 +97,32 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-
+    
+    
+    // On creation of activity (when settings tab is active)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         context = getApplication();
-
+        
+        // Grabs data from pevious activity
+        // We want to grab the users password/username
+        // Pass along user's FN to CRUD calls to DB
         Intent data = getIntent();
         userName = data.getStringExtra("userName");
         password = data.getStringExtra("password");
         userFN = data.getStringExtra("userFN");
-
+        
+        // Configure AWS and use UserMapperRepo as adapter for CRUD connections to NoSQL.
         AWSConfiguration awsConfig = null;
         this.dynamoDBMapper = DynamoDBMapper.builder()
                 .dynamoDBClient(dynamoDBClient)
                 .awsConfiguration(awsConfig)
                 .build();
         userMapRepo = new UserMapperRepo(dynamoDBClient);
-
+        
+        // Grab UI fields for editing/displaying
         mUserFN = (EditText) findViewById(R.id.userFN);
         mUserLN = (EditText) findViewById(R.id.userLN);
         mUserEmail = (EditText) findViewById(R.id.userEmail);
@@ -118,11 +131,12 @@ public class SettingsActivity extends AppCompatActivity {
         mConfirmPassword = (EditText) findViewById(R.id.confirmPassword);
         mCurrentPassword = (EditText) findViewById(R.id.currentPassword);
         mConfirmButton = (Button) findViewById(R.id.confirmButton);
-
+        
+        // Using the Text listener we can watch the user's input in the changepassword field
         mChangePassword.addTextChangedListener(mTextWatcher);
         mConfirmPassword.addTextChangedListener(mTextWatcher);
 
-        // Pull data from DB
+        // Pull users data from the DB (calls an async thread to be run in the background that pulls the users info
         Log.d("username","" + userName);
         mPullTask = new SettingsActivity.settingsTaskPull();
         try {
@@ -132,15 +146,17 @@ public class SettingsActivity extends AppCompatActivity {
             Log.d("Exception thrown pulling db",e.getMessage());
         }
 
-        // Set default values for user
+        // Displays the users current information on creation of the activity
         mUserFN.setText(user.getUserFN());
         mUserLN.setText(user.getUserLN());
         mUserEmail.setText(user.getUserEmail());
         mAdoptingFlag.setChecked(user.getIsAdopting());
-
         checkChangePasswordForEmpty();
     }
-
+    
+    
+    // Josh's implementation
+    // Info button displays on the header and allows access to
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -168,8 +184,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    
+    // On user clicking Confirm Settings button attempts to save user's information
     public void trySaveUserSettings(View v){
+        // Need to convert text fields to strings to be saved on DB
         userFN = mUserFN.getText().toString();
         String userLN = mUserLN.getText().toString();
         String userEmail = mUserEmail.getText().toString();
@@ -181,6 +199,9 @@ public class SettingsActivity extends AppCompatActivity {
         Boolean pass = true;
         Boolean changedFlag = false;
         View focusView = null;
+        
+        // Checks user's FN/LN fields to see if empty
+        // If empty don't push anything to DB and prompt user.
         if (userFN.isEmpty()){
             mUserFN.setError("First name field is empty");
             focusView = mUserFN;
@@ -192,7 +213,9 @@ public class SettingsActivity extends AppCompatActivity {
             focusView = mUserFN;
             pass = false;
         }
-
+        
+        // Checks user's email to see if valid and non empty
+        // Acts as FN/LN fields
         if (TextUtils.isEmpty(userEmail)){
             mUserEmail.setError("Email field is empty");
             focusView = mUserEmail;
@@ -204,8 +227,9 @@ public class SettingsActivity extends AppCompatActivity {
             focusView = mUserEmail;
             pass = false;
         }
-
-        //TODO:Fix password updating
+        
+        // Checks if user inputted anything into changepassword
+        // If user has entered text, check if both changepassword and confirmpasswords are VALID and the same.
         if(!TextUtils.isEmpty(changePassword)){
             if(!isPasswordValid(changePassword)){
                 mChangePassword.setError("Password must be 8 characters and have at " +
@@ -227,7 +251,8 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         }
-
+        
+        // To allow user to save information, user must input their current password
         if(currentPassword.isEmpty()){
             mCurrentPassword.setError("Please input your password to save your data!");
             focusView = mCurrentPassword;
@@ -239,7 +264,9 @@ public class SettingsActivity extends AppCompatActivity {
             focusView = mCurrentPassword;
             pass = false;
         }
-
+        
+        // If any of the above failed, then focus view to error and prompt user
+        // Else attempt to push the data to the NoSQL DB
         if(pass == false){
                 focusView.requestFocus();
         }
@@ -256,7 +283,11 @@ public class SettingsActivity extends AppCompatActivity {
                 mUserSaveTask.execute((Void) null);
         }
     }
-
+    
+    // Helper functions
+    // Checks if email is valid within our language
+    // Input: <email>
+    // Output: true | false
     private boolean isEmailValid(String email) {
         Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(email);
@@ -269,7 +300,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         return true;
     }
-
+    
+    // Checks if password is valid.
+    // Input: <password>
+    // Output: true | false
     private boolean isPasswordValid(String password) {
         Boolean isGood = false;
 
@@ -279,16 +313,17 @@ public class SettingsActivity extends AppCompatActivity {
 
         return isGood;
     }
-    // TODO: two async threads. 1 thread for pulling (do in oncreate.) once all data is pulled kill thread.
-    // TODO: once user clicks confirm do push thread things
-
+    
+    // Asynchronous Task where we try to push data to the database.
+    // If completed go back to main swipe activity
     public class settingsTaskPush extends AsyncTask<Void, Void, Boolean> {
         private ProgressDialog pDialog;
         private TblUser userS;
         settingsTaskPush(TblUser userT){
             userS = userT;
         }
-
+        
+        // onPreExecute pushes a dialog to prevent any action until attempt to push is completed.
         @Override
         protected void onPreExecute() {
             pDialog = new ProgressDialog(SettingsActivity.this);
@@ -315,7 +350,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         }
     }
-
+    
+    // Asynchronous Task where we try to pull data from the database.
+    // Prevents user from doing any action until attempt to pull is done
     private class settingsTaskPull extends AsyncTask<Void, Void, Boolean> {
         private ProgressDialog pDialog;
 
@@ -334,10 +371,10 @@ public class SettingsActivity extends AppCompatActivity {
 
                 user = userMapRepo.getUser(userName);
                 if (user != null){
-                    Log.d("bgTask",user.getUserId() + "\n" + user.getUserFN());
+                    Log.d("bgTaskPull",user.getUserId() + "\n" + user.getUserFN());
                     return true;
                 }else{
-                    Log.d("doinBackground user load","didnt work fucking bitch");
+                    Log.d("bgTaskPull","Blew up. FIX!!!!");
                     return false;
                 }
 
