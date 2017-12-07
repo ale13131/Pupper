@@ -1,0 +1,57 @@
+SettingsActivity Unit Testing
+
+Following Unit Tests are to be done:
+1) First Name updating / checking
+2) Last Name updating / checking
+3) Email updating / checking
+4) Password checking
+5) Change password / Confirm Password checking
+6) Adopting flag checking
+7) Current password checking
+8) Confirm settings button update
+
+We had to check the following equivalence classes:
+For {FN, LN, Email, NewPass, ConfirmPass, Adopt, CurrPass} 
+Each item above had a pass and fail state.
+ConfirmPass and CurrPass have extra fail states that must be checked
+1) FN => Pass - Not empty
+         Fail - Empty
+2) LN => Pass - Not Empty
+         Fail - Empty
+3) Email -> Pass - Within the language for emails
+            Fail - Empty or not within the language (e.g. double @)
+4) NewPass -> Pass - password was atleast 8 characters long and had atleast one number and letter
+              Fail1 - Empty or not within the above specficiation
+5) ConfirmPass -> Pass - Password was atleast 8 characters long and had at least one number and letter
+               -> Fail1 - Empty or not within above specficiation
+               -> Fail2 - ConfirmPass is not EQUAL to NewPass
+6) Adopt -> Pass - Clicking on checkbox, checks field
+         -> Fail - Clicking on checkbox does no action
+7) CurrPass -> Pass - password was at least 8 characters long and had at least one number and letter
+            -> Fail1 - Password empty or not within above specficiation
+            -> Fail2 - Password is same as users current saved password
+            
+The confirm settings button has the following scenarios:
+1) If any of the above 7 fail, FAIL
+2) If all of the above pass, reopen settings page and confirm settings have changed
+    If settings changed -> Pass
+    If any changed settings did not change -> Fail
+
+Type into the following:
+Log in with the pupperdemo::pupper115 account
+
+< First Name > = Pupper
+< Last Name > = User
+< Email > = pupperuser@pupper.pupper
+< New Password > = 115pupper
+< Confirm Password > = 115pupper
+< Adopting flag > = Checked
+< Current Password > = pupper115
+
+Re-open the settings page.
+Verify the following:
+< First Name > = Pupper
+< Last Name > = User
+< Email > = pupperuser@pupper.pupper
+< Adopting flag > = Checked
+< Current Password > = pupper115
